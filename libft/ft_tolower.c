@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Created: 2015/11/24 11:58:34 by rluder            #+#    #+#             */
+/*   Updated: 2015/12/03 19:13:47 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
-	return (0);
+#include "libft.h"
+
+int	ft_tolower(int c)
+{
+	if (c < 91 && c > 64)
+		c = c + 32;
+	return (c);
+}

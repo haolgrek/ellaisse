@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Created: 2015/11/25 11:10:16 by rluder            #+#    #+#             */
+/*   Updated: 2015/12/04 15:33:54 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
-	return (0);
+#include "libft.h"
+
+int	ft_atoi(const char *str)
+{
+	int sig;
+	int tot;
+
+	sig = 1;
+	tot = 0;
+	while (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\v' ||
+			*str == '\r' || *str == '\f')
+		str++;
+	if (*str == '-')
+	{
+		sig = -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	while (ft_isdigit(*str) == 1)
+	{
+		tot = (tot * 10 + (*str - 48));
+		str++;
+	}
+	return (tot * sig);
+}

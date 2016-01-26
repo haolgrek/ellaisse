@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Created: 2015/11/26 13:56:31 by rluder            #+#    #+#             */
+/*   Updated: 2015/11/26 15:27:11 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
+#include "libft.h"
+
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	unsigned char	*buf1;
+	unsigned char	*buf2;
+
+	buf1 = (unsigned char*)s1;
+	buf2 = (unsigned char*)s2;
+	while (n-- > 0)
+	{
+		if (*buf1 == *buf2)
+		{
+			buf1++;
+			buf2++;
+		}
+		else
+			return (*buf1 - *buf2);
+	}
 	return (0);
+}

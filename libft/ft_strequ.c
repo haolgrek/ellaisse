@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Created: 2015/11/28 21:09:41 by rluder            #+#    #+#             */
+/*   Updated: 2015/12/03 19:04:30 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
+#include "libft.h"
+
+int	ft_strequ(char const *s1, char const *s2)
+{
+	if (s1 && s2 && ft_strcmp(s1, s2) == 0)
+		return (1);
 	return (0);
+}

@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Created: 2015/11/25 18:27:25 by rluder            #+#    #+#             */
+/*   Updated: 2016/01/18 18:21:36 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
-	return (0);
+#include "libft.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = (char*)s;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
+}

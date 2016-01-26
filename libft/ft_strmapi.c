@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Created: 2015/11/28 21:06:54 by rluder            #+#    #+#             */
+/*   Updated: 2015/12/07 19:02:27 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
-	return (0);
+#include "libft.h"
+#include <stdlib.h>
+
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char			*dst;
+	unsigned int	i;
+	unsigned int	len;
+
+	i = 0;
+	len = ft_strlen(s);
+	dst = malloc(sizeof(char) * (len + 1));
+	if (!dst)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		dst[i] = f(i, s[i]);
+		i++;
+	}
+	while (i < len + 1)
+		dst[i++] = '\0';
+	return (dst);
+}

@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Created: 2015/11/24 14:09:47 by rluder            #+#    #+#             */
+/*   Updated: 2015/11/28 18:01:14 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
-	return (0);
+#include "libft.h"
+
+char	*ft_strncat(char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+	size_t	len;
+	char	*s22;
+
+	i = 0;
+	s22 = (char*)s2;
+	len = ft_strlen(s1);
+	while (s22[i] != '\0' && i < n)
+	{
+		s1[len + i] = s22[i];
+		i++;
+	}
+	s1[len + i] = '\0';
+	return (s1);
+}
