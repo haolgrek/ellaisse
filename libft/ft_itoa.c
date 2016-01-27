@@ -6,14 +6,14 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 16:07:25 by rluder            #+#    #+#             */
-/*   Updated: 2015/12/08 15:29:05 by rluder           ###   ########.fr       */
+/*   Updated: 2016/01/22 15:04:01 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-int		ft_size(int n)
+static int		ft_size(int n)
 {
 	int size;
 
@@ -30,7 +30,7 @@ int		ft_size(int n)
 	return (size);
 }
 
-char	*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
 	char	*dst;
 	int		sign;

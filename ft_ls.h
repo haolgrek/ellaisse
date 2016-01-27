@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 21:35:58 by rluder           ###   ########.fr       */
+/*   Updated: 2016/01/27 21:38:28 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <pwd.h>
 # include <uuid/uuid.h>
 # include <grp.h>
+# include <time.h>
 
 typedef struct				s_data
 {
@@ -33,8 +34,17 @@ typedef struct				s_data
 	char					*owner;
 	char					*group_name;
 	unsigned int			size;
-	unsigned long long int	time;
-
+	long long				time;
+	struct s_data			*next;
 }							t_data;
+
+typedef struct				s_options
+{
+	int						l;
+	int						R;
+	int						a;
+	int						r;
+	int						t;
+}							t_options;
 
 #endif

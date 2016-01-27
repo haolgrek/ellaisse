@@ -6,7 +6,7 @@
 #    By: rluder <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 16:24:20 by rluder            #+#    #+#              #
-#    Updated: 2016/01/18 16:32:57 by rluder           ###   ########.fr        #
+#    Updated: 2016/01/22 14:58:49 by rluder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,14 @@ SRC = ft_atoi.c\
 	  ft_putendl_fd.c\
 	  ft_putnbr_fd.c\
 	  ft_strndup.c\
+	  ft_lstadd.c\
+	  ft_lstdel.c\
+	  ft_lstdelone.c\
+	  ft_lstiter.c\
+	  ft_lstmap.c\
+	  ft_lstnew.c\
+	  ft_power.c\
+	  ft_root.c\
 
 OBJECTS = ft_atoi.o\
 		  ft_bzero.o\
@@ -121,6 +129,14 @@ OBJECTS = ft_atoi.o\
 		  ft_putendl_fd.o\
 		  ft_putnbr_fd.o\
 		  ft_strndup.o\
+		  ft_lstadd.o\
+		  ft_lstdel.o\
+		  ft_lstdelone.o\
+		  ft_lstiter.o\
+		  ft_lstmap.o\
+		  ft_lstnew.o\
+		  ft_power.o\
+		  ft_root.o\
 
 all: $(NAME)
 

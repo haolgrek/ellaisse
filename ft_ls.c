@@ -6,89 +6,84 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 22:09:59 by rluder           ###   ########.fr       */
+/*   Updated: 2016/01/27 21:58:54 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	*get_group(char *name)
+int	stock_options(int argc, char **argv)
 {
-	struct stat		sb;
-	struct group	*grp;
+	t_options	*options;
+	int			i;
+	int			j;
 
-	if ((grp = getgrgid(sb.st_gid)) != NULL)
-		return (grp->gr_name);
-	else
+	i = 0;
+	j = 1;
+	options = malloc(sizeof(t_options));
+	while (argv[j][0] == '-' && argv[j][i] != '\0')
 	{
-		write(1, "stat group failed for ", 22);
-		ft_putstr(name);
-		write(1, " : ", 3);
-		ft_putstr(strerror(errno));
-		write(1, ".\n", 2);
-		exit (EXIT_FAILURE);
+		i = 0;
+		while (argv[j][i] != '\0')
+		{
+			i++;
+			if (argv[j][i] == 'l')
+				options->l = 1;
+			else if (argv[j][i] == 'R')
+				options->R = 1;
+			else if (argv[j][i] == 'a')
+				options->a = 1;
+			else if (argv[j][i] == 'r')
+				options->r = 1;
+			else if (argv[j][i] == 't')
+				options->t = 1;
+			else
+			{
+				printf("ft_ls : illegal option -- %c\n", argv[j][i]);
+				printf("usage: ft_ls [-Ralrt] [file ...]\n");
+				return (0);
+			}
+		}
+		j++;
 	}
+	return (j);
 }
 
-char	*get_owner(char *name)
+int	grab_all(int argc, char ** argv, int i)
 {
-	struct stat		sb;
-	struct passwd	*pwd;
+//	t_data			*start;
+	t_data			*data;
+	struct stat		buf;
 
-	if ((pwd = getpwuid(sb.st_uid)) != NULL)
-		return (pwd->pw_name);
-	else
-	{
-		write(1, "stat owner failed for ", 22);
-		ft_putstr(name);
-		write(1, " : ", 3);
-		ft_putstr(strerror(errno));
-		write(1, ".\n", 2);
-		exit (EXIT_FAILURE);
-	}
-}
-
-static unsigned	get_file_size(const char *file_name)
-{
-	struct stat	sb;
-	if (stat(file_name, & sb) != 0)
-	{
-		write(1, "stat size failed for ", 21);
-		ft_putstr(file_name);
-		write(1, " : ", 3);
-		ft_putstr(strerror(errno));
-		write(1, ".\n", 2);
-		exit (EXIT_FAILURE);
-	}
-	return (sb.st_size);
-}
-
-int main (int argc, char ** argv)
-{
-	int				i;
-	const char		*file_name;
-	t_data			data;
-
-	i = 1;
+//	start = data;
+	data = malloc(sizeof(t_data));
 	while (i < argc)
 	{
-		file_name = argv[i];
-		write (1, "filename : ", 11);
-		data.name = (char*)file_name;
-		ft_putstr(data.name);
-		write (1, " owner : ", 9);
-		data.owner = get_owner(data.name);
-		ft_putstr(data.owner);
-		write (1, " group name : ", 14);
-		data.group_name = get_group(data.name);
-		ft_putstr(data.group_name);
-		write(1, " size : ", 9);
-		data.size = get_file_size(data.name);
-		ft_putnbr(data.size);
-		write(1, " bytes\n", 7);
-		write(1, " rights : ", 9);
+		stat(argv[i], &buf);
+		data->link_number = buf.st_nlink;
+		data->name = argv[i];
+		data->owner = getpwuid(buf.st_uid)->pw_name;
+		data->group_name = getgrgid(buf.st_gid)->gr_name;
+		data->size = buf.st_size;
+		data->time = buf.st_mtime;
 
+		printf("links = %d\n", data->link_number);
+		printf("name = %s\n", data->name);
+		printf("owner = %s\n", data->owner);
+		printf("group = %s\n", data->group_name);
+		printf("size = %d Bytes\n", data->size);
+		printf("last edition (num) = %lld\n", data->time);
+		printf("last edition = %s\n", ctime(&(buf.st_mtime)));
+//		data = data->next;
 		i++;
 	}
-	return 0;
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	int	i;
+
+	i = stock_options(argc, argv);
+	grab_all(argc, argv, i);
 }
