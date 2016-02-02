@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/28 19:50:35 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/02 18:45:01 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ typedef struct				s_data
 	char					type;
 	char					*file_mode;
 	unsigned int			link_number;
+	char					*lpath;
 	char					*name;
 	char					*owner;
 	char					*group_name;
 	unsigned int			size;
 	long long				time;
+	char					*ctime;
 	struct s_data			*next;
 }							t_data;
 

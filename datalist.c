@@ -6,13 +6,13 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/28 18:57:36 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/02 12:23:19 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_data	*ft_datanew(void const *content, size_t content_size)
+t_data	*ft_datanew()
 {
 	t_data	*datanew;
 
@@ -29,3 +29,5 @@ t_data	*ft_datanew(void const *content, size_t content_size)
 	datanew = datanew->next;
 	return (datanew);
 }
+
+t_data	*insert_back(t_data *data
