@@ -6,21 +6,28 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 18:16:59 by rluder            #+#    #+#             */
-/*   Updated: 2016/01/26 14:58:42 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/04 19:31:35 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
-	check arguments (options? dir?)
-	si options, save options
-	si dir, changepath
-	si multi dir, save paths
-	opendir
-	readdir
-		while files:
-			recup stat
-			recup lstat
-			recup time
-			recup getpwuid getgrgid
-			affichage
-	return (0);
+print(options, liste fichiers + dossiers)
+	if (a)
+		recup (.) ???
+		get names;
+		if (r)
+			reverse;
+	if (t)
+		get names;
+		tri;
+		if (r)
+			reverse;
+	if (l)
+		get all;
+		if (r)
+			reverse;
+	if -R
+		get names;
+		if (r)
+			reverse;
+		recursive;
+	return (data1);

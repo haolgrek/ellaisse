@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/02 19:26:57 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/04 19:18:12 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_mode(mode_t perms)
 	return (mode);
 }
 
-t_data	*grab_all(int argc, char **argv, int i)
+t_data	*grab_all(int argc, char *argv, int i)
 {
 	struct stat	buf;
 	char		*bufsiz;
@@ -94,28 +94,26 @@ t_data	*grab_all(int argc, char **argv, int i)
 
 	bufsiz = malloc(sizeof(char));
 	data = malloc(sizeof(t_data));
-	lstat(argv[i], &buf);
+	lstat(argv, &buf);
 	data->type = get_type(buf.st_mode);
 	data->file_mode = get_mode(buf.st_mode);
 	data->link_number = buf.st_nlink;
-	data->name = argv[i];
+	data->name = argv;
 	data->owner = getpwuid(buf.st_uid)->pw_name;
 	data->group_name = getgrgid(buf.st_gid)->gr_name;
 	data->size = buf.st_size;
 	data->time = buf.st_mtime;
 	data->ctime = ctime(&(buf.st_mtime));
-	readlink(argv[i], bufsiz, 300);
+	readlink(argv, bufsiz, 300);
 	data->lpath = bufsiz;
 	data->next = (void*)0;
 	return (data);
 }
 
-int	printlist(t_data *data)
+int	printlist(t_data *data, t_options *options)
 {
 	ft_putchar(data->type);
 	ft_putstr(data->file_mode);
-//	printf("%c", data->type);
-//	printf("%s ", data->file_mode);
 	write(1, " ", 1);
 	ft_putnbr(data->link_number);
 	write(1, " ", 1);
@@ -127,19 +125,11 @@ int	printlist(t_data *data)
 	write(1, " ", 1);
 	ft_putstr(data->ctime);
 	write(1, " ", 1);
-//	printf("lk: %d ", data->link_number);
 	ft_putstr(data->name);
-//	printf("nm: %s ", data->name);
-//	printf("ow: %s ", data->owner);
-//	printf("gnm: %s ", data->group_name);
-//	printf("sz: %dB ", data->size);
-//	printf("numed: %lld ", data->time);
-//	printf("ed: %s ", data->ctime);
-	if (data->type == 'l')
+	if (data->type == 'l' && options->l == 1)
 	{
 		write(1, " -> ", 4);
 		ft_putstr(data->lpath);
-//		printf("-> lpath: %s", data->lpath);
 	}
 	write(1, "\n", 1);
 	return (0);
@@ -148,6 +138,9 @@ int	printlist(t_data *data)
 int	main(int argc, char **argv)
 {
 	int			i;
+	int			j;
+	DIR			*dir;
+	struct dirent	*dp;
 	t_data		*start;
 	t_data		*data;
 	t_options	*options;
@@ -156,19 +149,21 @@ int	main(int argc, char **argv)
 	i = stock_options(argc, argv, options);
 	if (i < argc)
 	{
-		data = grab_all(argc, argv, i++);
+		data = grab_all(argc, argv[i], i);
+		i++;
 		start = data;
 	}
+	j = i;
 	while (i < argc)
 	{
-		data->next = grab_all(argc, argv, i);
+		data->next = grab_all(argc, argv[i], i);
 		data = data->next;
 		i++;
 	}
-	i = 0;
+	data = start;
 	while (start)
 	{
-		printlist(start);
+		printlist(start, options);
 		i++;
 		start = start->next;
 	}

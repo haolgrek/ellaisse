@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/02 18:45:01 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/04 16:36:27 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <uuid/uuid.h>
 # include <grp.h>
 # include <time.h>
+# include <dirent.h>
 
 typedef struct				s_data
 {
