@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/04 19:18:12 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/07 20:06:53 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,34 @@ int	stock_options(int argc, char **argv, t_options *options)
 
 	i = 0;
 	j = 1;
-	while (argv[j][0] == '-' && argv[j][i] != '\0')
+	write (1, "wtf\n", 4);
+	while (argv[j] && argv[j][0] == '-')
 	{
-		i = 0;
-		while (argv[j][i] != '\0')
+		if (argv[j][0] == '-')
 		{
-			i++;
-			if (argv[j][i] == 'l')
-				options->l = 1;
-			else if (argv[j][i] == 'R')
-				options->R = 1;
-			else if (argv[j][i] == 'a')
-				options->a = 1;
-			else if (argv[j][i] == 'r')
-				options->r = 1;
-			else if (argv[j][i] == 't')
-				options->t = 1;
-			else if (argv[j][i] != '\0')
+			i = 0;
+			while (argv[j][i] != '\0')
 			{
-				printf("ft_ls : illegal option -- %c\n", argv[j][i]);
-				printf("usage: ft_ls [-Ralrt] [file ...]\n");
-				exit (1);
+				i++;
+				if (argv[j][i] == 'l')
+					options->l = 1;
+				else if (argv[j][i] == 'R')
+					options->R = 1;
+				else if (argv[j][i] == 'a')
+					options->a = 1;
+				else if (argv[j][i] == 'r')
+					options->r = 1;
+				else if (argv[j][i] == 't')
+					options->t = 1;
+				else if (argv[j][i] != '\0')
+				{
+					printf("ft_ls : illegal option -- %c\n", argv[j][i]);
+					printf("usage: ft_ls [-Ralrt] [file ...]\n");
+					exit (1);
+				}
 			}
+			j++;
 		}
-		j++;
 	}
 	return (j);
 }
@@ -112,6 +116,7 @@ t_data	*grab_all(int argc, char *argv, int i)
 
 int	printlist(t_data *data, t_options *options)
 {
+	write (1, "print\n", 6);
 	ft_putchar(data->type);
 	ft_putstr(data->file_mode);
 	write(1, " ", 1);
@@ -135,6 +140,18 @@ int	printlist(t_data *data, t_options *options)
 	return (0);
 }
 
+char	*argvpoint(t_data *data, t_data *start, int argc)
+{
+	char	**argv;
+
+	argv = malloc(sizeof(char*) * 2);
+	argv[0] = ft_strdup("ft_ls");
+	argv[1] = ft_strdup(".");
+	data = grab_all(argc, argv[1], 1);
+	start = data;
+	return (argv[1]);
+}
+
 int	main(int argc, char **argv)
 {
 	int			i;
@@ -144,14 +161,32 @@ int	main(int argc, char **argv)
 	t_data		*start;
 	t_data		*data;
 	t_options	*options;
-	
+
 	options = malloc(sizeof(t_options));
-	i = stock_options(argc, argv, options);
+	if (argc == 1)
+	{
+		write(1, "argc1\n", 6);
+		i = 1;
+	}
+	if (argc != 1)
+	{
+		i = stock_options(argc, argv, options);
+		printf("i = %d\n", i);
+	}
+	if (argc == i)
+	{
+		write(1, "argc3\n", 6);
+		data = grab_all(argc, argvpoint(data, start, argc), 1);
+		write(1, "argc4\n", 6);
+		start = data;
+	}
 	if (i < argc)
 	{
+		write(1, "argc5\n", 6);
 		data = grab_all(argc, argv[i], i);
 		i++;
 		start = data;
+		write(1, "argc6\n", 6);
 	}
 	j = i;
 	while (i < argc)
@@ -163,8 +198,8 @@ int	main(int argc, char **argv)
 	data = start;
 	while (start)
 	{
+		write(1, "wat?\n", 5);
 		printlist(start, options);
-		i++;
 		start = start->next;
 	}
 }
