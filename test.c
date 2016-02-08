@@ -10,18 +10,10 @@ int	main(int argc, char **argv)
 	int				i;
 
 	i = 0;
-	if (argc < 2)
-	{
-		printf("Usage: %s <directory>\n", argv[0]);
-		return (0);
-	}
 	if ((dip = opendir(argv[1])) == NULL)
 	{
-		perror("opendir");
 		return (0);
 	}
-	printf("Directory stream now open\n");
-
 	while ((dit = readdir(dip)) != NULL)
 	{
 		i++;
@@ -34,6 +26,6 @@ int	main(int argc, char **argv)
 		perror("closedir");
 		return (0);
 	}
-	printf("\n Directory stream noww closed\n");
+	printf("\n Directory stream now closed\n");
 	return (1);
 }

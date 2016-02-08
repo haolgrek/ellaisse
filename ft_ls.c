@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/07 20:06:53 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/08 16:04:18 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	stock_options(int argc, char **argv, t_options *options)
 
 	i = 0;
 	j = 1;
-	write (1, "wtf\n", 4);
 	while (argv[j] && argv[j][0] == '-')
 	{
 		if (argv[j][0] == '-')
@@ -116,7 +115,6 @@ t_data	*grab_all(int argc, char *argv, int i)
 
 int	printlist(t_data *data, t_options *options)
 {
-	write (1, "print\n", 6);
 	ft_putchar(data->type);
 	ft_putstr(data->file_mode);
 	write(1, " ", 1);
@@ -157,48 +155,50 @@ int	main(int argc, char **argv)
 	int			i;
 	int			j;
 	DIR			*dir;
-	struct dirent	*dp;
+	struct dirent	*dit;
 	t_data		*start;
 	t_data		*data;
 	t_options	*options;
 
 	options = malloc(sizeof(t_options));
 	if (argc == 1)
-	{
-		write(1, "argc1\n", 6);
 		i = 1;
-	}
 	if (argc != 1)
-	{
 		i = stock_options(argc, argv, options);
-		printf("i = %d\n", i);
-	}
+	j = 0;
 	if (argc == i)
 	{
-		write(1, "argc3\n", 6);
-		data = grab_all(argc, argvpoint(data, start, argc), 1);
-		write(1, "argc4\n", 6);
+		if ((dir = opendir(".")) == NULL)
+			return (0);
+		data = grab_all(argc, ".", 1);
+		i++;
 		start = data;
+		while ((dit = readdir(dir)) != NULL)
+		{
+			data->next = grab_all(argc, dit->d_name, i);
+			data = data->next;
+		i++;
+		}
 	}
+	data = start;
 	if (i < argc)
 	{
-		write(1, "argc5\n", 6);
+		if ((dir = opendir(argv[i])) == NULL)
+			return (0);
 		data = grab_all(argc, argv[i], i);
 		i++;
 		start = data;
-		write(1, "argc6\n", 6);
-	}
-	j = i;
-	while (i < argc)
-	{
-		data->next = grab_all(argc, argv[i], i);
-		data = data->next;
-		i++;
+		j = i;
+		while (i < argc && (dit = readdir(dir)) != NULL)
+		{
+			data->next = grab_all(argc, argv[i], i);
+			data = data->next;
+			i++;
+		}
 	}
 	data = start;
 	while (start)
 	{
-		write(1, "wat?\n", 5);
 		printlist(start, options);
 		start = start->next;
 	}
