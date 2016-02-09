@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/04 16:36:27 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/09 18:33:55 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,10 @@ typedef struct				s_options
 	int						r;
 	int						t;
 }							t_options;
+
+t_data	*get_dir(char *dirname);
+t_data	*grab_all(char *argv);
+char	*get_mode(mode_t perms);
+char	get_type(mode_t type);
 
 #endif
