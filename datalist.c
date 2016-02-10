@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/09 18:34:55 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/10 17:52:44 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ t_data	*get_dir(char *dirname)
 	path = ft_strjoin(dirname, "/");
 	dir = opendir(dirname);
 	if (!dir)
-		return ((void*)0);
+	{
+		data = grab_all(dirname);
+		return (data);
+	}
 	if ((dit = readdir(dir)))
 	{
 		data = grab_all(ft_strjoin(path, dit->d_name));

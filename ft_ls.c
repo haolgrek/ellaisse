@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/09 18:52:16 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/10 17:45:45 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	**argvpoint(void)
 	argv = malloc(sizeof(char*) * 2);
 	argv[0] = ft_strdup("ft_ls");
 	argv[1] = ft_strdup(".");
+	argv[2] = NULL;
 	return (argv);
 }
 
@@ -96,18 +97,24 @@ int	main(int argc, char **argv)
 	start = malloc(sizeof(t_data));
 	data = malloc(sizeof(t_data));
 	options = malloc(sizeof(t_options));
-	if (argc == 1)
+	i = stock_options(argc, argv, options);
+	if (argc == i)
 	{
 		i = 1;
 		argv = argvpoint();
 	}
-	if (argc != 1)
-		i = stock_options(argc, argv, options);
 	start = data;
-	data = get_dir(argv[i]);
-	while (data)
+	while (argv[i])
 	{
-		printlist(data, options);
+		data = get_dir(argv[i]);
+		start = data;
 		data = data->next;
+		i++;
+		while (start)
+		{
+			printlist(start, options);
+			start = start->next;
+		}
 	}
+	return (0);
 }
