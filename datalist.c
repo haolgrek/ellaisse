@@ -6,13 +6,13 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/10 17:52:44 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/12 17:52:04 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	get_type(mode_t type)
+unsigned char	get_type(mode_t type)
 {
 	char	typ;
 
@@ -52,6 +52,29 @@ char	*get_mode(mode_t perms)
 	return (mode);
 }
 
+char	*cutpath(char *path)
+{
+	char	*filename;
+	int		len;
+	int		nlen;
+
+	nlen = 0;
+	len = ft_strlen(path);
+	while (len && path[len] != '/')
+	{
+		nlen++;
+		len--;
+	}
+	filename = malloc(sizeof(char) * (nlen + 1));
+	nlen = 0;
+	if (path[len] == '/')
+		len++;
+	while (path[len])
+		filename[nlen++] = path[len++];
+	filename[nlen] = '\0';
+	return (filename);
+}
+
 t_data	*grab_all(char *argv)
 {
 	struct stat	buf;
@@ -64,7 +87,8 @@ t_data	*grab_all(char *argv)
 	data->type = get_type(buf.st_mode);
 	data->file_mode = get_mode(buf.st_mode);
 	data->link_number = buf.st_nlink;
-	data->name = argv;
+	data->path = argv;
+	data->name = cutpath(argv);
 	data->owner = getpwuid(buf.st_uid)->pw_name;
 	data->group_name = getgrgid(buf.st_gid)->gr_name;
 	data->size = buf.st_size;

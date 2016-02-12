@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/10 17:45:45 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/12 17:59:32 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ int	stock_options(int argc, char **argv, t_options *options)
 	return (j);
 }
 
+int	printshort(t_data *data, t_options *options)
+{
+	ft_putstr(data->name);
+	write(1, "\n", 1);
+	return (0);
+}
+
 int	printlist(t_data *data, t_options *options)
 {
 	ft_putchar(data->type);
@@ -67,7 +74,7 @@ int	printlist(t_data *data, t_options *options)
 	ft_putstr(data->ctime);
 	write(1, " ", 1);
 	ft_putstr(data->name);
-	if (data->type == 'l' && options->l == 1)
+	if (data->type == 'l')
 	{
 		write(1, " -> ", 4);
 		ft_putstr(data->lpath);
@@ -85,6 +92,13 @@ char	**argvpoint(void)
 	argv[1] = ft_strdup(".");
 	argv[2] = NULL;
 	return (argv);
+}
+
+int	ispoint(char *filename)
+{
+	if (filename[0] == '.')
+		return (1);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -112,8 +126,26 @@ int	main(int argc, char **argv)
 		i++;
 		while (start)
 		{
-			printlist(start, options);
-			start = start->next;
+			if (options->l == 1)
+			{
+				if (options->a == 0 && ispoint(start->name) == 1)
+					start = start->next;
+				else
+				{
+					printlist(start, options);
+					start = start->next;
+				}
+			}
+			else
+			{
+				if (options->a == 0 && ispoint(start->name) == 1)
+					start = start->next;
+				else
+				{
+					printshort(start, options);
+					start = start->next;
+				}
+			}
 		}
 	}
 	return (0);

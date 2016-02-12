@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/09 18:33:55 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/12 17:44:31 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@
 
 typedef struct				s_data
 {
-	char					type;
+	unsigned char			type;
 	char					*file_mode;
 	unsigned int			link_number;
 	char					*lpath;
 	char					*name;
+	char					*path;
 	char					*owner;
 	char					*group_name;
 	unsigned int			size;
@@ -51,9 +52,9 @@ typedef struct				s_options
 	int						t;
 }							t_options;
 
-t_data	*get_dir(char *dirname);
-t_data	*grab_all(char *argv);
-char	*get_mode(mode_t perms);
-char	get_type(mode_t type);
+t_data			*get_dir(char *dirname);
+t_data			*grab_all(char *argv);
+char			*get_mode(mode_t perms);
+unsigned char	get_type(mode_t type);
 
 #endif
