@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/12 17:59:32 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/15 14:41:10 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ int	main(int argc, char **argv)
 		i++;
 		while (start)
 		{
+			if (options->t == 1)
+				tsort(start);
 			if (options->l == 1)
 			{
 				if (options->a == 0 && ispoint(start->name) == 1)

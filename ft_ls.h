@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/12 17:44:31 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/15 15:59:58 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ t_data			*get_dir(char *dirname);
 t_data			*grab_all(char *argv);
 char			*get_mode(mode_t perms);
 unsigned char	get_type(mode_t type);
+t_data			*swapdata(t_data *data1, t_data *data2);
+t_data			*tsort(t_data *data);
 
 #endif
