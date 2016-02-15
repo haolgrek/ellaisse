@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/15 14:52:39 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/15 18:25:15 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ t_data	*grab_all(char *argv)
 	data->owner = getpwuid(buf.st_uid)->pw_name;
 	data->group_name = getgrgid(buf.st_gid)->gr_name;
 	data->size = buf.st_size;
-	data->time = buf.st_mtime;
-	data->ctime = ctime(&buf.st_mtime);
+	data->ctime = ft_strsub(ctime(&(buf.st_mtime)), 4, 12);
+	data->time = (long long)buf.st_mtime;
 	readlink(argv, bufsiz, 300);
 	data->lpath = bufsiz;
 	data->next = (void*)0;
