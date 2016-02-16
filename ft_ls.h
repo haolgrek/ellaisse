@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/15 18:38:48 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/16 19:28:16 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char			*get_mode(mode_t perms);
 unsigned char	get_type(mode_t type);
 t_data			*swapdata(t_data *data1, t_data *data2);
 t_data			*tsort(t_data *data);
+t_data			*rsort(t_data *data, t_data *data2);
 t_data			*asciisort(t_data *data);
 
 #endif
