@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/15 20:56:30 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/16 18:17:10 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	options = malloc(sizeof(t_options));
 	i = stock_options(argc, argv, options);
+	printf("t? %d\n", options->t);
 	if (argc == i)
 	{
 		i = 1;
@@ -131,16 +132,20 @@ int	main(int argc, char **argv)
 			start = start->next;
 		}
 		start = data;
-		while (data && options->t == 1)
+		if (options->t == 1)
 		{
-			tsort(start);
-			data = data->next;
+			write (1, "plop\n", 1);
+			while (start)
+			{
+				tsort(start);
+				start = start->next;
+			}
 		}
-		data = start;
+		start = data;
 		while (start)
 		{
-//			if (options->t == 1)
-//				tsort(start);
+			if (options->t == 1)
+				start = tsort(start);
 			if (options->l == 1)
 			{
 				if (options->a == 0 && ispoint(start->name) == 1)
