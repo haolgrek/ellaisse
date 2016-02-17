@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/16 19:55:50 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/17 18:32:39 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,22 @@ t_data	*asciisort(t_data *data)
 	return (start);
 }
 
-t_data	*rsort(t_data *data, t_data *data2)
+t_data	*rsort(t_data *data)
 {
-	t_data	*tmp;
-
-	if (data == NULL)
-		return (data2);
-	tmp = data;
-	data = data->next;
-	tmp->next = data2;
-	return (rsort(data, tmp));
+	t_data	*prev;
+	t_data	*current;
+	t_data	*next;
+	
+	prev = NULL;
+	current = data;
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	return (prev);
 }
 
 t_data	*swapdata(t_data *data1, t_data *data2)
@@ -82,4 +88,26 @@ t_data	*swapdata(t_data *data1, t_data *data2)
 	data1->ctime = data2->ctime;
 	data1->lpath = data2->lpath;
 	return (data1);
+}
+
+t_data	*prep(t_data *start, t_data *data, t_options *options)
+{
+	while (start)
+	{
+		asciisort(start);
+		start = start->next;
+	}
+	start = data;
+	if (options->t == 1)
+	{
+		while (start)
+		{
+			tsort(start);
+			start = start->next;
+		}
+	}
+	start = data;
+	if (options->r == 1)
+		start = rsort(start);
+	return (start);
 }

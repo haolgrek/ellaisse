@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/15 18:25:15 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/17 18:50:49 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ char	*cutpath(char *path)
 t_data	*grab_all(char *argv)
 {
 	struct stat	buf;
-	char		*bufsiz;
+	char		bufsiz[256];
 	t_data		*data;
 
-	bufsiz = malloc(sizeof(char));
 	data = malloc(sizeof(t_data));
 	lstat(argv, &buf);
 	data->type = get_type(buf.st_mode);
@@ -94,8 +93,6 @@ t_data	*grab_all(char *argv)
 	data->size = buf.st_size;
 	data->ctime = ft_strsub(ctime(&(buf.st_mtime)), 4, 12);
 	data->time = (long long)buf.st_mtime;
-	readlink(argv, bufsiz, 300);
-	data->lpath = bufsiz;
 	data->next = (void*)0;
 	return (data);
 }

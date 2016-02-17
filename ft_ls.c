@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/16 19:27:26 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/17 19:26:57 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ int	stock_options(int argc, char **argv, t_options *options)
 	return (j);
 }
 
+void	showlnk(t_data *data)
+{
+	char	buf[256];
+
+	int		n;
+	n = readlink(data->path, (char*)&buf, 255);
+	write(1, buf, n);
+}
+
 int	printshort(t_data *data, t_options *options)
 {
 	ft_putstr(data->name);
@@ -77,7 +86,7 @@ int	printlist(t_data *data, t_options *options)
 	if (data->type == 'l')
 	{
 		write(1, " -> ", 4);
-		ft_putstr(data->lpath);
+		showlnk(data);
 	}
 	write(1, "\n", 1);
 	return (0);
@@ -101,6 +110,29 @@ int	ispoint(char *filename)
 	return (0);
 }
 
+void	cleanargv(char **argv, int argc, int opt)
+{
+//	char	**newargv;
+	char	*temp;
+	int		i;
+
+	i = opt;
+//	newargv = malloc(sizeof(char*) * argc);
+	while ((i + 1) < argc)
+	{
+		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) > 0)
+		{
+			temp = argv[i];
+			argv[i] = argv[i + 1];
+			argv[i + 1] = temp;
+			i = opt;
+		}
+		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) <= 0)
+			i++;
+	}
+//	return (argv);
+}
+
 int	main(int argc, char **argv)
 {
 	int			i;
@@ -118,6 +150,7 @@ int	main(int argc, char **argv)
 		argv = argvpoint();
 	}
 	start = data;
+	cleanargv(argv, argc, i);
 	while (argv[i])
 	{
 		data = get_dir(argv[i]);
@@ -125,27 +158,9 @@ int	main(int argc, char **argv)
 		data = data->next;
 		i++;
 		data = start;
+		start = prep(start, data, options);
 		while (start)
 		{
-			asciisort(start);
-			start = start->next;
-		}
-		start = data;
-		if (options->t == 1)
-		{
-			while (start)
-			{
-				tsort(start);
-				start = start->next;
-			}
-		}
-		start = data;
-		while (start)
-		{
-			if (options->t == 1)
-				start = tsort(start);
-			if (options->r == 1)
-				start = rsort(data, data->next);
 			if (options->l == 1)
 			{
 				if (options->a == 0 && ispoint(start->name) == 1)
