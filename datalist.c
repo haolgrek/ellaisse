@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/17 20:10:04 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/17 21:51:05 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_data	*grab_all(char *argv)
 	if (lstat(argv, &buf) != 0)
 	{
 		data->type = '0';
+		data->name = "nope";
 		nofile(argv);
 		return (data);
 	}
