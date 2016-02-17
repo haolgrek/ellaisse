@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/17 19:26:57 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/17 20:14:33 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	printshort(t_data *data, t_options *options)
 
 int	printlist(t_data *data, t_options *options)
 {
+	if (data->type == '0')
+		return (0);
 	ft_putchar(data->type);
 	ft_putstr(data->file_mode);
 	write(1, " ", 1);
@@ -112,12 +114,10 @@ int	ispoint(char *filename)
 
 void	cleanargv(char **argv, int argc, int opt)
 {
-//	char	**newargv;
 	char	*temp;
 	int		i;
 
 	i = opt;
-//	newargv = malloc(sizeof(char*) * argc);
 	while ((i + 1) < argc)
 	{
 		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) > 0)
@@ -130,7 +130,6 @@ void	cleanargv(char **argv, int argc, int opt)
 		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) <= 0)
 			i++;
 	}
-//	return (argv);
 }
 
 int	main(int argc, char **argv)

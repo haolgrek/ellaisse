@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/17 18:50:49 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/17 20:10:04 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ char	*cutpath(char *path)
 	return (filename);
 }
 
+void	nofile(char *argv)
+{
+	write(1, "ls: ", 4);
+	ft_putstr(argv);
+	ft_putendl(": No such file or directory");
+}
+
 t_data	*grab_all(char *argv)
 {
 	struct stat	buf;
@@ -82,7 +89,12 @@ t_data	*grab_all(char *argv)
 	t_data		*data;
 
 	data = malloc(sizeof(t_data));
-	lstat(argv, &buf);
+	if (lstat(argv, &buf) != 0)
+	{
+		data->type = '0';
+		nofile(argv);
+		return (data);
+	}
 	data->type = get_type(buf.st_mode);
 	data->file_mode = get_mode(buf.st_mode);
 	data->link_number = buf.st_nlink;
