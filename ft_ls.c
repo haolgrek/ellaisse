@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 17:56:26 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 19:24:25 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,12 +209,7 @@ int	main(int argc, char **argv)
 		if (options->R == 1)
 		{
 			write(1, "je gere pas ca putain\n", 22);
-			while(start)
-			{
-				if (start->type == 'd')
-					recursion(start, options);
-				start = start->next;
-			}
+			recursion(start, options);
 		}
 		else
 		{
