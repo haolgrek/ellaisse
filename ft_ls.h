@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 19:05:35 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 23:45:53 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct				s_options
 	int						a;
 	int						r;
 	int						t;
+	int						rec;
 }							t_options;
 
 t_data			*get_dir(char *dirname);
@@ -67,4 +68,5 @@ void			recursion(t_data *data, t_options *options);
 int				ispoint(char *filename);
 int				printlist(t_data *data, t_options *options);
 int				printshort(t_data *data, t_options *options);
+void			printall(char *argv, t_data *start, t_data *data, t_options *options, int i);
 #endif

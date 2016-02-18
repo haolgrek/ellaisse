@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 19:24:25 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 23:48:13 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	stock_options(int argc, char **argv, t_options *options)
 	i = 0;
 	j = argc;
 	j = 1;
+	options->rec = 0;
 	while (argv[j] && argv[j][0] == '-')
 	{
 		if (argv[j][0] == '-')
@@ -163,21 +164,6 @@ int	cleanargv(char **argv, int argc, int opt)
 			i++;
 	}
 	return (opt);
-}
-
-void	printargv(char **argv, int argc, int i)
-{
-	int	j;
-
-	j = 0;
-	ft_putendl("argv :");
-	while (argv[j])
-	{
-		ft_putendl(argv[j]);
-		j++;
-	}
-	ft_putendl("argv[i] :");
-	ft_putendl(argv[i]);
 }
 
 int	main(int argc, char **argv)

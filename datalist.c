@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 20:06:14 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/19 00:01:14 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,10 @@ void	recursion(t_data *data, t_options *options)
 {
 	t_data	*start;
 	t_data	*data2;
-
+	
 	start = data;
-	while (data)
+	ft_putendl("start rec");
+	while (data && options->rec != 1)
 	{	
 		if (options->l == 1)
 		{
@@ -162,18 +163,39 @@ void	recursion(t_data *data, t_options *options)
 			}
 		}
 	}
+	options->rec = 1;
 	data = start;
+	ft_putendl("end first while");
 	while (start)
 	{
+		ft_putendl("in sec while");
 		if (start->type == 'd' && ft_strcmp(start->name, ".") != 0 && ft_strcmp(start->name, "..") != 0)
 		{
-			ft_putendl(start->path);
+			ft_putendl(start->name);
 			data2 = get_dir(start->path);
+			write (1, "start->path:", 12);
+			ft_putendl(start->path);
+			write (1, "data2->path:", 12);
+			ft_putendl(data2->path);
 			start = start->next;
 			data = data2;
 			data2 = data2->next;
 			data2 = data;
 			data = prep(data, data2, options);
+/*			if (options->l == 1)
+			{
+				if (options->a == 0 && ispoint(start->name) == 1)
+					start = start->next;
+				else
+				{
+					printlist(start, options);
+					start = start->next;
+				}
+			}
+			else
+			{
+				ft_putendl("we'll see");
+			}*/
 			recursion(start, options);
 		}
 		else
