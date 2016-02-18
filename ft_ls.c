@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/17 22:25:12 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 14:38:50 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	ispoint(char *filename)
 	return (0);
 }
 
-void	cleanargv(char **argv, int argc, int opt)
+int	cleanargv(char **argv, int argc, int opt)
 {
 	char	*temp;
 	int		i;
@@ -130,6 +130,11 @@ void	cleanargv(char **argv, int argc, int opt)
 		}
 		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) <= 0)
 			i++;
+	}
+	i = opt;
+	while ((i + 1) < argc)
+	{
+		
 	}
 	cleanerror
 	cleanfiles
@@ -153,7 +158,7 @@ int	main(int argc, char **argv)
 		argv = argvpoint();
 	}
 	start = data;
-	cleanargv(argv, argc, i);
+	i = cleanargv(argv, argc, i);
 	while (argv[i])
 	{
 		data = get_dir(argv[i]);
