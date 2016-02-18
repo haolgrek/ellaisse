@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 17:10:33 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 19:05:01 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,27 @@ t_data	*get_dir(char *dirname)
 
 void	recursion(t_data *data, t_options *options)
 {
-	
+	while (data)
+	{
+		if (options->l == 1)
+		{
+			if (options->a == 0 && ispoint(data->name) == 1)
+				data = data->next;
+			else
+			{
+				printlist(data, options);
+				data = data->next;
+			}
+		}
+		else
+		{
+			if (options->a == 0 && ispoint(data->name) == 1)
+				data = data->next;
+			else
+			{
+				printshort(data, options);
+				data = data->next;
+			}
+		}
+	}
 }

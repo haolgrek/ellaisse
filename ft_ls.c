@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 16:38:26 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 17:56:26 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ int	main(int argc, char **argv)
 			while(start)
 			{
 				if (start->type == 'd')
-					recursion(start->path, options);
+					recursion(start, options);
 				start = start->next;
 			}
 		}
