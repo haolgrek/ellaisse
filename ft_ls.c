@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 14:38:50 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 16:38:26 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,12 @@ int	ispoint(char *filename)
 
 int	cleanargv(char **argv, int argc, int opt)
 {
-	char	*temp;
-	int		i;
-// declarer un stat
-// doit trier les erreurs, puis les fichiers, puis les dossiers
+	char			*temp;
+	int				i;
+	struct stat		buf;
+	DIR				*dir;
+	struct dirent	*dit;
+
 	i = opt;
 	while ((i + 1) < argc)
 	{
@@ -134,11 +136,48 @@ int	cleanargv(char **argv, int argc, int opt)
 	i = opt;
 	while ((i + 1) < argc)
 	{
-		
+		if ((i + 1) < argc && lstat(argv[i], &buf) == 0 && lstat(argv[i + 1], &buf) != 0)
+		{
+			temp = argv[i];
+			argv[i] = argv[i + 1];
+			argv[i + 1] = temp;
+			i = opt;
+		}
+		else
+			i++;
 	}
-	cleanerror
-	cleanfiles
-	cleandir
+	i = opt;
+	while (lstat(argv[i], &buf) != 0)
+		nofile(argv[i++]);
+	opt = i;
+	while ((i + 1) < argc)
+	{
+		if ((i + 1) < argc && (dir = opendir(argv[i])) && !(dir = opendir(argv[i + 1])))
+		{
+			temp = argv[i];
+			argv[i] = argv[i + 1];
+			argv[i + 1] = temp;
+			i = opt;
+		}
+		else
+			i++;
+	}
+	return (opt);
+}
+
+void	printargv(char **argv, int argc, int i)
+{
+	int	j;
+
+	j = 0;
+	ft_putendl("argv :");
+	while (argv[j])
+	{
+		ft_putendl(argv[j]);
+		j++;
+	}
+	ft_putendl("argv[i] :");
+	ft_putendl(argv[i]);
 }
 
 int	main(int argc, char **argv)
@@ -164,29 +203,42 @@ int	main(int argc, char **argv)
 		data = get_dir(argv[i]);
 		start = data;
 		data = data->next;
-		i++;
 		data = start;
 		start = prep(start, data, options);
-		while (start)
+		ft_putendl(argv[i++]);
+		if (options->R == 1)
 		{
-			if (options->l == 1)
+			write(1, "je gere pas ca putain\n", 22);
+			while(start)
 			{
-				if (options->a == 0 && ispoint(start->name) == 1)
-					start = start->next;
-				else
-				{
-					printlist(start, options);
-					start = start->next;
-				}
+				if (start->type == 'd')
+					recursion(start->path, options);
+				start = start->next;
 			}
-			else
+		}
+		else
+		{
+			while (start)
 			{
-				if (options->a == 0 && ispoint(start->name) == 1)
-					start = start->next;
+				if (options->l == 1)
+				{
+					if (options->a == 0 && ispoint(start->name) == 1)
+						start = start->next;
+					else
+					{
+						printlist(start, options);
+						start = start->next;
+					}
+				}
 				else
 				{
-					printshort(start, options);
-					start = start->next;
+					if (options->a == 0 && ispoint(start->name) == 1)
+						start = start->next;
+					else
+					{
+						printshort(start, options);
+						start = start->next;
+					}
 				}
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/17 18:38:15 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 15:48:34 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ t_data			*tsort(t_data *data);
 t_data			*rsort(t_data *data);
 t_data			*asciisort(t_data *data);
 t_data			*prep(t_data *start, t_data *data, t_options *options);
+void			nofile(char *argv);
 
 #endif

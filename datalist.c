@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/17 21:51:05 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/18 17:10:33 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,7 @@ t_data	*grab_all(char *argv)
 	t_data		*data;
 
 	data = malloc(sizeof(t_data));
-	if (lstat(argv, &buf) != 0)
-	{
-		data->type = '0';
-		data->name = "nope";
-		nofile(argv);
-		return (data);
-	}
+	lstat(argv, &buf);
 	data->type = get_type(buf.st_mode);
 	data->file_mode = get_mode(buf.st_mode);
 	data->link_number = buf.st_nlink;
@@ -137,4 +131,9 @@ t_data	*get_dir(char *dirname)
 	}
 	closedir(dir);
 	return (start);
+}
+
+void	recursion(t_data *data, t_options *options)
+{
+	
 }
