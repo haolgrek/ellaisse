@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 23:48:13 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/19 19:13:04 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ int	main(int argc, char **argv)
 	int			i;
 	t_data		*start;
 	t_data		*data;
+	t_data		*larg;
 	t_options	*options;
 
 	start = malloc(sizeof(t_data));
@@ -182,20 +183,25 @@ int	main(int argc, char **argv)
 		i = 1;
 		argv = argvpoint();
 	}
-	start = data;
 	i = cleanargv(argv, argc, i);
+	start = larg;
 	while (argv[i])
 	{
-		data = get_dir(argv[i]);
-		start = data;
-		data = data->next;
-		data = start;
-		start = prep(start, data, options);
-		ft_putendl(argv[i++]);
+		larg = get_dir(argv[i]);
+		start = larg;
+		larg = larg->next;
+		larg = start;
+		start = prep(start, larg, options);
+		i++;
+	}
+	larg = start;
+	while (larg)
+	{
 		if (options->R == 1)
 		{
 			write(1, "je gere pas ca putain\n", 22);
 			recursion(start, options);
+/* faire recursion en envoyant le nom dans argv[i] du while */
 		}
 		else
 		{
@@ -223,6 +229,7 @@ int	main(int argc, char **argv)
 				}
 			}
 		}
+		larg = larg->next;
 	}
 	return (0);
 }

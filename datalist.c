@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/19 00:01:14 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/19 19:17:29 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ char	*get_mode(mode_t perms)
 	mode[7] = (perms & S_IWOTH) ? 'w' : '-';
 	mode[8] = (perms & S_IXOTH) ? 'x' : '-';
 	mode[9] = '\0';
+	if (perms & S_ISUID)
+		mode[2] = (perms & S_IXUSR) ? 's' : 'S';
+	if (perms & S_ISGID)
+		mode[5] = (perms & S_IXGRP) ? 's' : 'S';
+	if (perms & S_ISVTX)
+		mode[8] = (perms & S_IXOTH) ? 't' : 'T';
 	return (mode);
 }
 
@@ -181,21 +187,21 @@ void	recursion(t_data *data, t_options *options)
 			data = data2;
 			data2 = data2->next;
 			data2 = data;
-			data = prep(data, data2, options);
-/*			if (options->l == 1)
+			data = prep(data2, data, options);
+			if (options->l == 1)
 			{
-				if (options->a == 0 && ispoint(start->name) == 1)
-					start = start->next;
+				if (options->a == 0 && ispoint(data->name) == 1)
+					data = data->next;
 				else
 				{
-					printlist(start, options);
-					start = start->next;
+					printlist(data, options);
+					data = data->next;
 				}
 			}
 			else
 			{
 				ft_putendl("we'll see");
-			}*/
+			}
 			recursion(start, options);
 		}
 		else
