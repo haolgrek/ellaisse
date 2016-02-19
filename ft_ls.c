@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/19 21:45:00 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/19 22:30:41 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,13 @@ int	cleanargv(char **argv, int argc, int opt)
 int	main(int argc, char **argv)
 {
 	int			i;
-	t_data		*start;
-	t_data		*data;
-	t_data		*larg;
+//	t_data		*start;
+//	t_data		*data;
+//	t_data		*larg;
 	t_options	*options;
 
-	start = malloc(sizeof(t_data));
-	data = malloc(sizeof(t_data));
+//	start = malloc(sizeof(t_data));
+//	data = malloc(sizeof(t_data));
 	options = malloc(sizeof(t_options));
 	i = stock_options(argc, argv, options);
 	if (argc == i)
@@ -184,72 +184,87 @@ int	main(int argc, char **argv)
 		argv = argvpoint();
 	}
 	i = cleanargv(argv, argc, i);
-	start = larg;
-	start = data;
-	while (argv[i])
+//	start = data;
+/*	while (argv[i])
 	{
-		data = grab_all(argv[i]);
-		start = data;
+		data = get_dir(argv[i]);
+		ft_putendl("data->name :");
+		ft_putendl(data->name);
+//		start = data;
 		data = data->next;
-		data = start;
+//		data = start;
 		i++;
+//		data = start;
 	}
-	data = start;
+	start = prep(start, data, options);
+//	data = start;
 	while (start)
 	{
+		write (1, "wut?\n", 5);
 		ft_putendl("start->name :");
 		ft_putendl(start->name);
-		write (1, "wut?\n", 5);
+		ft_putendl("data->name :");
+		ft_putendl(data->name);
 		printlist(start, options);
 		start = start->next;
 	}
 	return (0);
 }
-
-/*	while (argv[i])
+*/
+	while (argv[i])
 	{
-		larg = get_dir(argv[i]);
-		start = larg;
-		larg = larg->next;
-		larg = start;
-		start = prep(start, larg, options);
+		doall(argv[i], options);
 		i++;
-		larg = start;
-		while (larg)
+	}
+	return (0);
+}
+
+void	doall(char *argv, t_options *options)
+{
+	t_data		*start;
+	t_data		*larg;
+
+	start = malloc(sizeof(t_data));
+	larg = malloc(sizeof(t_data));
+	larg = get_dir(argv);
+	start = larg;
+	larg = larg->next;
+	larg = start;
+	start = prep(start, larg, options);
+	larg = start;
+	while (larg)
+	{
+		if (options->R == 1)
 		{
-			if (options->R == 1)
+			write(1, "je gere pas ca putain\n", 22);
+			doall(larg->name, options);
+		}
+		else
+		{
+			while (start)
 			{
-				write(1, "je gere pas ca putain\n", 22);
-				recursion(start, options);
-			}
-			else
-			{
-				while (start)
+				if (options->l == 1)
 				{
-					if (options->l == 1)
-					{
-						if (options->a == 0 && ispoint(start->name) == 1)
-							start = start->next;
-						else
-						{
-							printlist(start, options);
-							start = start->next;
-						}
-					}
+					if (options->a == 0 && ispoint(start->name) == 1)
+						start = start->next;
 					else
 					{
-						if (options->a == 0 && ispoint(start->name) == 1)
-							start = start->next;
-						else
-						{
-							printshort(start, options);
-							start = start->next;
-						}
+						printlist(start, options);
+						start = start->next;
+					}
+				}
+				else
+				{
+					if (options->a == 0 && ispoint(start->name) == 1)
+						start = start->next;
+					else
+					{
+						printshort(start, options);
+						start = start->next;
 					}
 				}
 			}
-			larg = larg->next;
 		}
+		larg = larg->next;
 	}
-	return (0);
-}*/
+}
