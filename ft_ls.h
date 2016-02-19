@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/18 23:45:53 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/19 20:07:04 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void			recursion(t_data *data, t_options *options);
 int				ispoint(char *filename);
 int				printlist(t_data *data, t_options *options);
 int				printshort(t_data *data, t_options *options);
-void			printall(char *argv, t_data *start, t_data *data, t_options *options, int i);
+t_data			*printit(t_data *data, t_data *data2, t_options *options);
+t_data			*sort_argv(char *name, t_data *larg, t_data *start, t_options *options);
 #endif

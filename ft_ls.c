@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/19 19:13:04 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/19 21:45:00 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,28 @@ int	main(int argc, char **argv)
 	}
 	i = cleanargv(argv, argc, i);
 	start = larg;
+	start = data;
 	while (argv[i])
+	{
+		data = grab_all(argv[i]);
+		start = data;
+		data = data->next;
+		data = start;
+		i++;
+	}
+	data = start;
+	while (start)
+	{
+		ft_putendl("start->name :");
+		ft_putendl(start->name);
+		write (1, "wut?\n", 5);
+		printlist(start, options);
+		start = start->next;
+	}
+	return (0);
+}
+
+/*	while (argv[i])
 	{
 		larg = get_dir(argv[i]);
 		start = larg;
@@ -193,43 +214,42 @@ int	main(int argc, char **argv)
 		larg = start;
 		start = prep(start, larg, options);
 		i++;
-	}
-	larg = start;
-	while (larg)
-	{
-		if (options->R == 1)
+		larg = start;
+		while (larg)
 		{
-			write(1, "je gere pas ca putain\n", 22);
-			recursion(start, options);
-/* faire recursion en envoyant le nom dans argv[i] du while */
-		}
-		else
-		{
-			while (start)
+			if (options->R == 1)
 			{
-				if (options->l == 1)
+				write(1, "je gere pas ca putain\n", 22);
+				recursion(start, options);
+			}
+			else
+			{
+				while (start)
 				{
-					if (options->a == 0 && ispoint(start->name) == 1)
-						start = start->next;
-					else
+					if (options->l == 1)
 					{
-						printlist(start, options);
-						start = start->next;
+						if (options->a == 0 && ispoint(start->name) == 1)
+							start = start->next;
+						else
+						{
+							printlist(start, options);
+							start = start->next;
+						}
 					}
-				}
-				else
-				{
-					if (options->a == 0 && ispoint(start->name) == 1)
-						start = start->next;
 					else
 					{
-						printshort(start, options);
-						start = start->next;
+						if (options->a == 0 && ispoint(start->name) == 1)
+							start = start->next;
+						else
+						{
+							printshort(start, options);
+							start = start->next;
+						}
 					}
 				}
 			}
+			larg = larg->next;
 		}
-		larg = larg->next;
 	}
 	return (0);
-}
+}*/
