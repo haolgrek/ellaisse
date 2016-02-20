@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/20 19:42:08 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/20 20:52:21 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,38 +139,56 @@ t_data	*get_dir(char *dirname)
 	return (start);
 }
 
-void	recursion(char *name, t_options *options)
+void	recursion(t_data *data, t_options *options)
 {
 	t_data	*start;
-	t_data	*data;
+	t_data *data2;
 
-	data = get_dir(name);
-	start = data;
-	ft_putendl(name);
-	while (data)
+	start = malloc(sizeof(t_data));
+//	data2 = get_dir(data->name);
+//	start = data2;
+//	data2 = data2->next;
+//	data2 = start;
+//	start = prep(start, data2, options);
+//	data2 = start;
+//	ft_putendl(data2->name);
+	while (start)
 	{
+		data2 = get_dir(data->name);
+		start = data2;
+		data2 = data2->next;
+		data2 = start;
+		start = prep(start, data2, options);
+		data2 = start;
+		ft_putendl("start->name:");
+		ft_putendl(start->name);
+		ft_putendl("data2->name:");
+		ft_putendl(data2->name);
 		if (options->l == 1)
 		{
-			if (options->a != 1 && ispoint(data->name) == 1)
-				data = data->next;
-			else if (data->type == 'd' && ispoint(data->name) != 1)
+			if (options->a != 1 && ispoint(start->name) == 1)
+				start = start->next;
+			else if (start->type == 'd')
 			{
-				printlist(data, options);
-				data = data->next;
+				printlist(start, options);
+				start = start->next;
 //				recursion(data->name, options);
 			}
-//			else (
+			else
+				start = start->next;
 		}
 		else
 		{
-			if (options->a != 1 && ispoint(data->name) == 1)
-				data = data->next;
-			else
+			if (options->a != 1 && ispoint(start->name) == 1)
+				start = start->next;
+			else if (start->type == 'd')
 			{
-				printshort(data, options);
-				data = data->next;
+				printshort(start, options);
+				start = start->next;
 //				recursion(data->name, options);
 			}
+			else
+				start = start->next;
 		}
 	}
 }

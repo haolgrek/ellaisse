@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/20 19:42:10 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/20 20:49:00 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,13 @@ void	doall(char *argv, t_options *options)
 		}
 		else
 		{
-			recursion(start->name, options);
+			if (options->a != 1 && ispoint(start->name))
+				start = start->next;
+			else
+			{
+				recursion(start, options);
+				start= start->next;
+			}
 		}
 		larg = larg->next;
 	}
