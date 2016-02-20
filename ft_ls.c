@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/19 22:47:04 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/20 19:42:10 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	stock_options(int argc, char **argv, t_options *options)
 	int			j;
 
 	i = 0;
-	j = argc;
 	j = 1;
 	options->rec = 0;
 	while (argv[j] && argv[j][0] == '-')
@@ -230,33 +229,7 @@ void	doall(char *argv, t_options *options)
 		}
 		else
 		{
-			start = larg;
-			while (start)
-			{
-				if (options->l == 1)
-				{
-					if (options->a != 1 && ispoint(start->name) == 1)
-						start = start->next;
-					else
-					{
-						printlist(start, options);
-						start = start->next;
-					}
-				}
-				else
-				{
-					if (options->a != 1 && ispoint(start->name) == 1)
-						start = start->next;
-					else
-					{
-						printshort(start, options);
-						start = start->next;
-					}
-				}
-			}
-			write(1, "je gere pas ca putain\n", 22);
-			if (start->type == 'd')
-				doall(start->path, options);
+			recursion(start->name, options);
 		}
 		larg = larg->next;
 	}

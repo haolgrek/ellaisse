@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/19 22:17:11 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/20 19:42:08 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,72 +139,38 @@ t_data	*get_dir(char *dirname)
 	return (start);
 }
 
-void	recursion(t_data *data, t_options *options)
+void	recursion(char *name, t_options *options)
 {
 	t_data	*start;
-	t_data	*data2;
-	
+	t_data	*data;
+
+	data = get_dir(name);
 	start = data;
-	ft_putendl("start rec");
-	while (data && options->rec != 1)
-	{	
+	ft_putendl(name);
+	while (data)
+	{
 		if (options->l == 1)
 		{
-			if (options->a == 0 && ispoint(data->name) == 1)
+			if (options->a != 1 && ispoint(data->name) == 1)
 				data = data->next;
-			else
+			else if (data->type == 'd' && ispoint(data->name) != 1)
 			{
 				printlist(data, options);
 				data = data->next;
+//				recursion(data->name, options);
 			}
+//			else (
 		}
 		else
 		{
-			if (options->a == 0 && ispoint(data->name) == 1)
+			if (options->a != 1 && ispoint(data->name) == 1)
 				data = data->next;
 			else
 			{
 				printshort(data, options);
 				data = data->next;
+//				recursion(data->name, options);
 			}
 		}
-	}
-	options->rec = 1;
-	data = start;
-	ft_putendl("end first while");
-	while (start)
-	{
-		ft_putendl("in sec while");
-		if (start->type == 'd' && ft_strcmp(start->name, ".") != 0 && ft_strcmp(start->name, "..") != 0)
-		{
-			ft_putendl(start->name);
-			data2 = get_dir(start->path);
-			write (1, "start->path:", 12);
-			ft_putendl(start->path);
-			write (1, "data2->path:", 12);
-			ft_putendl(data2->path);
-			start = start->next;
-			data = data2;
-			data2 = data2->next;
-			data2 = data;
-			data = prep(data2, data, options);
-			if (options->l == 1)
-			{
-				if (options->a == 0 && ispoint(data->name) == 1)
-					data = data->next;
-				else
-				{
-					printlist(data, options);
-					data = data->next;
-				}
-			}
-			else
-			{
-				ft_putendl("we'll see");
-			}
-			recursion(start, options);
-		}
-		else
-			start = start->next;
 	}
 }
