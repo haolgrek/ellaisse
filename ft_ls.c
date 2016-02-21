@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 20:42:49 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 20:47:34 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,12 +183,9 @@ int	main(int argc, char **argv)
 		i = 1;
 		argv = argvpoint(&argc);
 	}
-	write (1, "ce\n", 3);
 	i = cleanargv(argv, argc, i);
-	write (1, "ah\n", 3);
 	data = printnodir(argc, argv, options, i);
 	start = data;
-	write (1, "be\n", 3);
 	if (options->R == 1)
 	{
 		while (data)

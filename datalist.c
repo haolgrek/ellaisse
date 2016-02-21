@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 20:09:44 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 21:54:59 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,6 @@ t_data	*get_dir(char *dirname)
 	dir = opendir(dirname);
 	if (!dir)
 	{
-//		data = grab_all(dirname);
-//		return (data);
 		return (NULL);
 	}
 	if ((dit = readdir(dir)))
@@ -140,7 +138,7 @@ t_data	*get_dir(char *dirname)
 	return (start);
 }
 
-void	recursion(t_data *data, t_options *options)
+/*void	recursion(t_data *data, t_options *options)
 {
 	t_data	*start;
 	t_data *data2;
@@ -192,4 +190,4 @@ void	recursion(t_data *data, t_options *options)
 				start = start->next;
 		}
 	}
-}
+}*/
