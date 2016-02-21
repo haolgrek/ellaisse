@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 18:47:32 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 20:42:49 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,11 @@ int	printlist(t_data *data, t_options *options)
 	return (0);
 }
 
-char	**argvpoint(void)
+char	**argvpoint(int *argc)
 {
 	char	**argv;
 
+	*argc = 2;
 	argv = malloc(sizeof(char*) * 2);
 	argv[0] = ft_strdup("ft_ls");
 	argv[1] = ft_strdup(".");
@@ -148,8 +149,11 @@ int	cleanargv(char **argv, int argc, int opt)
 	}
 	i = opt;
 	while (lstat(argv[i], &buf) != 0 && i < argc)
+	{
 		nofile(argv[i++]);
-	opt = i;
+		opt++;
+	}
+//	opt = i;
 	while ((i + 1) < argc)
 	{
 		if ((i + 1) < argc && (dir = opendir(argv[i])) && !(dir = opendir(argv[i + 1])))
@@ -170,18 +174,21 @@ int	main(int argc, char **argv)
 	int			i;
 	t_options	*options;
 	t_data		*data;
+	t_data		*start;
 
 	options = malloc(sizeof(t_options));
 	i = stock_options(argc, argv, options);
 	if (argc == i)
 	{
 		i = 1;
-		argv = argvpoint();
+		argv = argvpoint(&argc);
 	}
+	write (1, "ce\n", 3);
 	i = cleanargv(argv, argc, i);
-	write (1, "nape\n", 5);
+	write (1, "ah\n", 3);
 	data = printnodir(argc, argv, options, i);
-	write (1, "nepe\n", 5);
+	start = data;
+	write (1, "be\n", 3);
 	if (options->R == 1)
 	{
 		while (data)
@@ -193,7 +200,13 @@ int	main(int argc, char **argv)
 		}
 	}
 	else
-		printrest(data, options);
+	{
+		if (data->name)
+			printrest(data, options);
+		else
+			return (0);
+	}
+	return (0);
 }
 
 /*	while (argv[i])

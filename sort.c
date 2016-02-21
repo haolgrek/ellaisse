@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 16:50:02 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 20:20:44 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_data	*swapdata(t_data *data1, t_data *data2)
 
 t_data	*prep(t_data *start, t_data *data, t_options *options)
 {
+	data = start;
 	while (start)
 	{
 		asciisort(start);
