@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 21:52:46 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 22:50:17 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,22 @@ void	printrest(t_data *data, t_options *options)
 	data = start;
 	while (data)
 	{
-		if (data->type == 'd')
+		if (data->type == 'd' && data->name[0] != '.' && ft_strcmp(data->name, ".") != 0)
 		{
-			if (data != start)
 				ft_putchar('\n');
 			ft_putstr(data->name);
 			ft_putendl(":");
 //			printblocks();
-			temp = get_dir(data->name);
-			temp = prep(temp, temp2, options);
-			printlist(temp, options);
+			ft_putendl("do as i do for data argv");
+/*				if (data->name[0] != '.' && !ft_strcmp(data->name, "."))
+				{
+					data = get_dir(data->name);
+					temp = data;
+					data = data->next;
+//			temp2 = temp;
+					data = prep(temp, data, options);
+				}
+			printlist(data, options);*/
 		}
 		data = data->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 21:54:59 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 22:09:58 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,57 +137,3 @@ t_data	*get_dir(char *dirname)
 	closedir(dir);
 	return (start);
 }
-
-/*void	recursion(t_data *data, t_options *options)
-{
-	t_data	*start;
-	t_data *data2;
-
-	start = malloc(sizeof(t_data));
-//	data2 = get_dir(data->name);
-//	start = data2;
-//	data2 = data2->next;
-//	data2 = start;
-//	start = prep(start, data2, options);
-//	data2 = start;
-//	ft_putendl(data2->name);
-	while (start)
-	{
-		data2 = get_dir(data->name);
-		start = data2;
-		data2 = data2->next;
-		data2 = start;
-		start = prep(start, data2, options);
-		data2 = start;
-		ft_putendl("start->name:");
-		ft_putendl(start->name);
-		ft_putendl("data2->name:");
-		ft_putendl(data2->name);
-		if (options->l == 1)
-		{
-			if (options->a != 1 && ispoint(start->name) == 1)
-				start = start->next;
-			else if (start->type == 'd')
-			{
-				printlist(start, options);
-				start = start->next;
-//				recursion(data->name, options);
-			}
-			else
-				start = start->next;
-		}
-		else
-		{
-			if (options->a != 1 && ispoint(start->name) == 1)
-				start = start->next;
-			else if (start->type == 'd')
-			{
-				printshort(start, options);
-				start = start->next;
-//				recursion(data->name, options);
-			}
-			else
-				start = start->next;
-		}
-	}
-}*/
