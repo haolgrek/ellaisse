@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/20 20:09:47 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 17:10:20 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ int				printlist(t_data *data, t_options *options);
 int				printshort(t_data *data, t_options *options);
 t_data			*sort_argv(char *name, t_data *larg, t_data *start, t_options *options);
 void			doall(char *argv, t_options *options);
+t_data			*printnodir(int argc, char **argv, t_options *options, int i);
 #endif

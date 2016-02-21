@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/20 20:49:00 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 17:32:21 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int	main(int argc, char **argv)
 {
 	int			i;
 	t_options	*options;
+	t_data		*data;
 
 	options = malloc(sizeof(t_options));
 	i = stock_options(argc, argv, options);
@@ -178,15 +179,29 @@ int	main(int argc, char **argv)
 		argv = argvpoint();
 	}
 	i = cleanargv(argv, argc, i);
-	while (argv[i])
+	data = printnodir(argc, argv, options, i);
+	if (options->R == 1)
+	{
+		while (data)
+		{
+			if (data->type == 'd')
+				recursion(data->name, options);
+			data = data->next;
+		}
+	}
+	else
+		printrest(data, options);
+}
+
+/*	while (argv[i])
 	{
 		doall(argv[i], options);
 		i++;
 	}
 	return (0);
-}
+}*/
 
-void	doall(char *argv, t_options *options)
+/*void	doall(char *argv, t_options *options)
 {
 	t_data		*start;
 	t_data		*larg;
@@ -239,4 +254,4 @@ void	doall(char *argv, t_options *options)
 		}
 		larg = larg->next;
 	}
-}
+}*/
