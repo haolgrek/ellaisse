@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 17:32:21 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/21 18:47:32 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	cleanargv(char **argv, int argc, int opt)
 			i++;
 	}
 	i = opt;
-	while (lstat(argv[i], &buf) != 0)
+	while (lstat(argv[i], &buf) != 0 && i < argc)
 		nofile(argv[i++]);
 	opt = i;
 	while ((i + 1) < argc)
@@ -179,13 +179,16 @@ int	main(int argc, char **argv)
 		argv = argvpoint();
 	}
 	i = cleanargv(argv, argc, i);
+	write (1, "nape\n", 5);
 	data = printnodir(argc, argv, options, i);
+	write (1, "nepe\n", 5);
 	if (options->R == 1)
 	{
 		while (data)
 		{
 			if (data->type == 'd')
-				recursion(data->name, options);
+				write (1, "nope\n", 5);
+//				recursion(data->name, options);
 			data = data->next;
 		}
 	}
