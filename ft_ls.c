@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/21 20:47:34 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/22 17:06:47 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,11 +188,11 @@ int	main(int argc, char **argv)
 	start = data;
 	if (options->R == 1)
 	{
+		printrest(data, options);
 		while (data)
 		{
 			if (data->type == 'd')
-				write (1, "nope\n", 5);
-//				recursion(data->name, options);
+				recursion(data, options);
 			data = data->next;
 		}
 	}
@@ -205,66 +205,3 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
-
-/*	while (argv[i])
-	{
-		doall(argv[i], options);
-		i++;
-	}
-	return (0);
-}*/
-
-/*void	doall(char *argv, t_options *options)
-{
-	t_data		*start;
-	t_data		*larg;
-
-	start = malloc(sizeof(t_data));
-	larg = malloc(sizeof(t_data));
-	larg = get_dir(argv);
-	start = larg;
-	larg = larg->next;
-	larg = start;
-	start = prep(start, larg, options);
-	larg = start;
-	while (larg)
-	{
-		if (options->R != 1)
-		{
-			while (start)
-			{
-				if (options->l == 1)
-				{
-					if (options->a != 1 && ispoint(start->name) == 1)
-						start = start->next;
-					else
-					{
-						printlist(start, options);
-						start = start->next;
-					}
-				}
-				else
-				{
-					if (options->a != 1 && ispoint(start->name) == 1)
-						start = start->next;
-					else
-					{
-						printshort(start, options);
-						start = start->next;
-					}
-				}
-			}
-		}
-		else
-		{
-			if (options->a != 1 && ispoint(start->name))
-				start = start->next;
-			else
-			{
-				recursion(start, options);
-				start= start->next;
-			}
-		}
-		larg = larg->next;
-	}
-}*/
