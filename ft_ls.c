@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/22 18:43:46 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/22 21:42:55 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,9 +186,9 @@ int	main(int argc, char **argv)
 	i = cleanargv(argv, argc, i);
 	data = printnodir(argc, argv, options, i);
 	start = data;
+	printrest(data, options);
 	if (options->R == 1)
 	{
-		printrest(data, options);
 		while (data)
 		{
 			if (data->type == 'd')
@@ -196,12 +196,7 @@ int	main(int argc, char **argv)
 			data = data->next;
 		}
 	}
-	else
-	{
-		if (data->name)
-			printrest(data, options);
-		else
-			return (0);
-	}
+//	else
+//		printrest(data, options);
 	return (0);
 }
