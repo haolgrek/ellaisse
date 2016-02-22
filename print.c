@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/22 17:03:34 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/22 19:08:20 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ void	printdir(t_data *data, t_options *options)
 	while (start)
 	{
 		if (data->name[0] != '.' || options->a == 1)
-			printlist(start, options);
+		{
+			if (options->l == 1)
+				printlist(start, options);
+			else
+				printshort(start, options);
+		}
 		start = start->next;
 	}
 }
@@ -69,7 +74,12 @@ void	printrest(t_data *data, t_options *options)
 	while (data && data->type != 0)
 	{
 		if (data->type != 'd')
-			printlist(data, options);
+		{
+			if (options->l == 1)
+				printlist(data, options);
+			else
+				printshort(data, options);
+		}
 		data = data->next;
 	}
 	data = start;
@@ -88,7 +98,10 @@ void	printrest(t_data *data, t_options *options)
 			temp = prep(temp, temp, options);
 			while (temp)
 			{
-				printlist(temp, options);
+				if (options->l == 1)
+					printlist(temp, options);
+				else
+					printshort(temp, options);
 				temp = temp->next;
 			}
 		}
@@ -110,6 +123,7 @@ void	recursion(t_data *data, t_options *options)
 	{
 		if (data2->type == 'd' && (data2->name[0] != '.' || (ft_strcmp(data2->name, ".") && ft_strcmp(data2->name, "..") && options->a == 1)))
 		{
+			write(1, "\n", 1);
 			ft_putstr(data2->path);
 			ft_putendl(":");
 			if (data2->name[0] != '.' || options->a == 1 || !ft_strcmp(data2->name, "."))
@@ -118,7 +132,10 @@ void	recursion(t_data *data, t_options *options)
 			start = prep(start, start, options);
 			while (start)
 			{
-				printlist(start, options);
+				if (options->l == 1)
+					printlist(start, options);
+				else
+					printshort(start, options);
 				start = start->next;
 			}
 			recursion(data2, options);
