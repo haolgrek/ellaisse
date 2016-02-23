@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/22 21:42:55 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/23 16:48:59 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	showlnk(t_data *data)
 
 int	printshort(t_data *data, t_options *options)
 {
+	if (options->a != 1 && data->name[0] == '.')
+		return (0);
 	ft_putstr(data->name);
 	write(1, "\n", 1);
 	return (0);
@@ -70,6 +72,8 @@ int	printshort(t_data *data, t_options *options)
 int	printlist(t_data *data, t_options *options)
 {
 	if (data->type == '0')
+		return (0);
+	if (options->a != 1 && data->name[0] == '.')
 		return (0);
 	ft_putchar(data->type);
 	ft_putstr(data->file_mode);

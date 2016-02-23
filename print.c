@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/22 22:10:20 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/23 19:08:12 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,61 @@ t_data	*printnodir(int argc, char **argv, t_options *options, int i)
 	return (prep(start, data, options));
 }
 
-void	printblocks()
+t_data	*noaccess(char *name)
 {
-	
+	ft_putstr("ls: ");
+	ft_putstr(name);
+	ft_putendl(": Permission denied");
+	return (NULL);
+}
+
+void	ebadf(char *name)
+{
+	ft_putstr("ls: ");
+	ft_putstr(name);
+	ft_putendl(": Bad file descriptor");
+}
+
+int		printerror(char *name)
+{
+	DIR	*dir;
+	int	i;
+
+	i = 0;
+	dir = opendir(name);
+	if (!dir && errno == EBADF)
+		ebadf(name);
+	else if (!dir)
+		noaccess(name);
+	if (!dir)
+		i++;
+	else
+		closedir(dir);
+	return (i);
+}
+
+void	printblocks(t_data *data, t_options *options)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (data == NULL)
+	{
+		printerror(data->name);
+		return ;
+	}
+	if (options->l == 1)
+	{
+		ft_putstr("total ");
+		while (data)
+		{
+			if ((options->a == 1 && data->name[0] == '.') || data->name[0] != '.')
+				i = i + data->nblocks;
+			data = data->next;
+		}
+		ft_putnbr(i);
+		ft_putchar('\n');
+	}
 }
 
 void	printdir(t_data *data, t_options *options)
@@ -73,7 +125,7 @@ void	printrest(t_data *data, t_options *options)
 	start = data;
 	while (data && data->type != 0)
 	{
-		if (data->type != 'd' && options->l == 1)
+		if (data->type != 'd')
 		{
 			if (options->l == 1)
 				printlist(data, options);
@@ -85,7 +137,7 @@ void	printrest(t_data *data, t_options *options)
 	data = start;
 	while (data)
 	{
-		if (data->type == 'd' || options->l != 1)
+		if (data->type == 'd')
 		{
 			if (data != start)
 			{
@@ -93,8 +145,8 @@ void	printrest(t_data *data, t_options *options)
 				ft_putstr(data->name);
 				ft_putendl(":");
 			}
-//			if (data->name[0] != '.' || (options->a == 1 || !ft_strcmp(data->name, ".")))
-//				printblocks();
+			if (data->name[0] != '.' || (options->a == 1 || !ft_strcmp(data->name, ".")))
+				printblocks(data, options);
 			temp = get_dir(data->name);
 			temp = prep(temp, temp, options);
 //			printdir(temp, options);
@@ -120,7 +172,7 @@ void	recursion(t_data *data, t_options *options)
 	start = data2;
 	data2 = prep(start, data2, options);
 	start = data2;
-	printdir(data2, options);
+//	printdir(data2, options);
 	while (data2)
 	{
 		if (data2->type == 'd' && (data2->name[0] != '.' || (ft_strcmp(data2->name, ".") && ft_strcmp(data2->name, "..") && options->a == 1)))
@@ -129,7 +181,7 @@ void	recursion(t_data *data, t_options *options)
 			ft_putstr(data2->path);
 			ft_putendl(":");
 			if (data2->name[0] != '.' || options->a == 1 || !ft_strcmp(data2->name, "."))
-//				printblocks();
+				printblocks(data, options);
 			start = get_dir(data2->path);
 			start = prep(start, start, options);
 			while (start)

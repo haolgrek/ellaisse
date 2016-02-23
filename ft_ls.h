@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/22 16:37:50 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/23 18:52:23 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct				s_data
 	unsigned int			size;
 	long long				time;
 	char					*ctime;
+	int						nblocks;
 	struct s_data			*next;
 }							t_data;
 

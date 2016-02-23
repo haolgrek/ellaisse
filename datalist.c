@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/22 19:48:55 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/23 18:54:37 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_data	*grab_all(char *argv)
 	data->size = buf.st_size;
 	data->ctime = ft_strsub(ctime(&(buf.st_mtime)), 4, 12);
 	data->time = (long long)buf.st_mtime;
+	data->nblocks = buf.st_blocks;
 	data->next = (void*)0;
 	return (data);
 }
