@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/22 18:52:07 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/24 13:55:54 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_data	*swapdata(t_data *data1, t_data *data2)
 	data1->type = data2->type;
 	data1->file_mode = data2->file_mode;
 	data1->link_number = data2->link_number;
+	data1->lnklen = data2->lnklen;
+	data1->lpath = data1->lpath;
 	data1->path = data2->path;
 	data1->name = data2->name;
 	data1->owner = data2->owner;
@@ -86,7 +88,7 @@ t_data	*swapdata(t_data *data1, t_data *data2)
 	data1->size = data2->size;
 	data1->time = data2->time;
 	data1->ctime = data2->ctime;
-	data1->lpath = data2->lpath;
+	data1->nblocks = data2->nblocks;
 	return (data1);
 }
 

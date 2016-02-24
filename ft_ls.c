@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/23 16:48:59 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/24 13:53:20 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,5 @@ int	main(int argc, char **argv)
 			data = data->next;
 		}
 	}
-//	else
-//		printrest(data, options);
 	return (0);
 }
