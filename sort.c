@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 13:55:54 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/24 18:06:34 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_data	*rsort(t_data *data)
 	t_data	*prev;
 	t_data	*current;
 	t_data	*next;
-	
+
 	prev = NULL;
 	current = data;
 	while (current != NULL)

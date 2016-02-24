@@ -6,21 +6,39 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 13:53:20 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/24 18:19:34 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int	stock_options(int argc, char **argv, t_options *options)
+void	get_options(char **argv, int j, int i, t_options *options)
+{
+	if (argv[j][i] == 'l')
+		options->l = 1;
+	else if (argv[j][i] == 'R')
+		options->rec = 1;
+	else if (argv[j][i] == 'a')
+		options->a = 1;
+	else if (argv[j][i] == 'r')
+		options->r = 1;
+	else if (argv[j][i] == 't')
+		options->t = 1;
+	else if (argv[j][i] != '\0')
+	{
+		printf("ft_ls : illegal option -- %c\n", argv[j][i]);
+		printf("usage: ft_ls [-Ralrt] [file ...]\n");
+		exit(1);
+	}
+}
+
+int		stock_options(int argc, char **argv, t_options *options)
 {
 	int			i;
 	int			j;
 
-	i = 0;
 	j = 1;
-	options->rec = 0;
-	while (argv[j] && argv[j][0] == '-')
+	while (argv[j] && argv[j][0] == '-' && argv[j][1])
 	{
 		if (argv[j][0] == '-')
 		{
@@ -28,22 +46,7 @@ int	stock_options(int argc, char **argv, t_options *options)
 			while (argv[j][i] != '\0')
 			{
 				i++;
-				if (argv[j][i] == 'l')
-					options->l = 1;
-				else if (argv[j][i] == 'R')
-					options->R = 1;
-				else if (argv[j][i] == 'a')
-					options->a = 1;
-				else if (argv[j][i] == 'r')
-					options->r = 1;
-				else if (argv[j][i] == 't')
-					options->t = 1;
-				else if (argv[j][i] != '\0')
-				{
-					printf("ft_ls : illegal option -- %c\n", argv[j][i]);
-					printf("usage: ft_ls [-Ralrt] [file ...]\n");
-					exit (1);
-				}
+				get_options(argv, j, i, options);
 			}
 			j++;
 		}
@@ -54,13 +57,13 @@ int	stock_options(int argc, char **argv, t_options *options)
 void	showlnk(t_data *data)
 {
 	char	buf[256];
-
 	int		n;
+
 	n = readlink(data->path, (char*)&buf, 255);
 	write(1, buf, n);
 }
 
-int	printshort(t_data *data, t_options *options)
+int		printshort(t_data *data, t_options *options)
 {
 	if (options->a != 1 && data->name[0] == '.')
 		return (0);
@@ -69,7 +72,7 @@ int	printshort(t_data *data, t_options *options)
 	return (0);
 }
 
-int	printlist(t_data *data, t_options *options)
+int		printlist(t_data *data, t_options *options)
 {
 	if (data->type == '0')
 		return (0);
@@ -110,14 +113,14 @@ char	**argvpoint(int *argc)
 	return (argv);
 }
 
-int	ispoint(char *filename)
+int		ispoint(char *filename)
 {
 	if (filename[0] == '.')
 		return (1);
 	return (0);
 }
 
-int	cleanargv(char **argv, int argc, int opt)
+int		cleanargv(char **argv, int argc, int opt)
 {
 	char			*temp;
 	int				i;
@@ -141,7 +144,8 @@ int	cleanargv(char **argv, int argc, int opt)
 	i = opt;
 	while ((i + 1) < argc)
 	{
-		if ((i + 1) < argc && lstat(argv[i], &buf) == 0 && lstat(argv[i + 1], &buf) != 0)
+		if ((i + 1) < argc && lstat(argv[i], &buf) == 0
+				&& lstat(argv[i + 1], &buf) != 0)
 		{
 			temp = argv[i];
 			argv[i] = argv[i + 1];
@@ -157,10 +161,10 @@ int	cleanargv(char **argv, int argc, int opt)
 		nofile(argv[i++]);
 		opt++;
 	}
-//	opt = i;
 	while ((i + 1) < argc)
 	{
-		if ((i + 1) < argc && (dir = opendir(argv[i])) && !(dir = opendir(argv[i + 1])))
+		if ((i + 1) < argc && (dir = opendir(argv[i])) &&
+				!(dir = opendir(argv[i + 1])))
 		{
 			temp = argv[i];
 			argv[i] = argv[i + 1];
@@ -173,12 +177,11 @@ int	cleanargv(char **argv, int argc, int opt)
 	return (opt);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	int			i;
 	t_options	*options;
 	t_data		*data;
-	t_data		*start;
 
 	options = malloc(sizeof(t_options));
 	i = stock_options(argc, argv, options);
@@ -188,10 +191,9 @@ int	main(int argc, char **argv)
 		argv = argvpoint(&argc);
 	}
 	i = cleanargv(argv, argc, i);
-	data = printnodir(argc, argv, options, i);
-	start = data;
+	data = getrest(argc, argv, options, i);
 	printrest(data, options);
-	if (options->R == 1)
+	if (options->rec == 1)
 	{
 		while (data)
 		{

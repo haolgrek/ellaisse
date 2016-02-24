@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/23 18:54:37 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/24 18:05:27 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ unsigned char	get_type(mode_t type)
 	return (typ);
 }
 
-char	*get_mode(mode_t perms)
+char			*get_mode(mode_t perms)
 {
 	char	*mode;
 
@@ -58,37 +58,14 @@ char	*get_mode(mode_t perms)
 	return (mode);
 }
 
-char	*cutpath(char *path)
-{
-	char	*filename;
-	int		len;
-	int		nlen;
-
-	nlen = 0;
-	len = ft_strlen(path);
-	while (len && path[len] != '/')
-	{
-		nlen++;
-		len--;
-	}
-	filename = malloc(sizeof(char) * (nlen + 1));
-	nlen = 0;
-	if (path[len] == '/')
-		len++;
-	while (path[len])
-		filename[nlen++] = path[len++];
-	filename[nlen] = '\0';
-	return (filename);
-}
-
-void	nofile(char *argv)
+void			nofile(char *argv)
 {
 	write(1, "ls: ", 4);
 	ft_putstr(argv);
 	ft_putendl(": No such file or directory");
 }
 
-t_data	*grab_all(char *argv)
+t_data			*grab_all(char *argv)
 {
 	struct stat	buf;
 	char		bufsiz[256];
@@ -111,7 +88,7 @@ t_data	*grab_all(char *argv)
 	return (data);
 }
 
-t_data	*get_dir(char *dirname)
+t_data			*get_dir(char *dirname)
 {
 	char			*path;
 	t_data			*start;

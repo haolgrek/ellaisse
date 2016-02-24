@@ -6,112 +6,32 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 14:58:08 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/24 18:12:50 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_data	*printnodir(int argc, char **argv, t_options *options, int i)
+void	restdir(t_data *data, t_options *options, t_data *start, t_data *temp)
 {
-	struct stat	buf;
-	t_data		*start;
-	t_data		*data;
-
-	start = NULL;
-	while (i < argc)
+	while (data)
 	{
-		if (lstat(argv[i], &buf) != 0)
-			nofile(argv[i++]);
-		else
+		if (data->type == 'd')
 		{
-			if (!start)
+			if (data != start)
 			{
-				data = grab_all(argv[i++]);
-				start = data;
+				ft_putchar('\n');
+				ft_putstr(data->name);
+				ft_putendl(":");
 			}
-			else
-			{
-				data->next = grab_all(argv[i++]);
-				data = data->next;
-			}
+			temp = get_dir(data->path);
+			temp = prep(temp, temp, options);
+			if (temp->name[0] != '.' || (options->a == 1 ||
+						!ft_strcmp(temp->name, ".")))
+				printblocks(temp, options);
+			printall(temp, options);
 		}
-	}
-	return (prep(start, data, options));
-}
-
-t_data	*noaccess(char *name)
-{
-	ft_putstr("ls: ");
-	ft_putstr(name);
-	ft_putendl(": Permission denied");
-	return (NULL);
-}
-
-void	ebadf(char *name)
-{
-	ft_putstr("ls: ");
-	ft_putstr(name);
-	ft_putendl(": Bad file descriptor");
-}
-
-int		printerror(char *name)
-{
-	DIR	*dir;
-	int	i;
-
-	i = 0;
-	dir = opendir(name);
-	if (!dir && errno == EBADF)
-		ebadf(name);
-	else if (!dir)
-		noaccess(name);
-	if (!dir)
-		i++;
-	else
-		closedir(dir);
-	return (i);
-}
-
-void	printblocks(t_data *data, t_options *options)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (data == NULL)
-	{
-		printerror(data->name);
-		return ;
-	}
-	if (options->l == 1)
-	{
-		ft_putstr("total ");
-		while (data)
-		{
-			if ((options->a == 1 && data->name[0] == '.') || data->name[0] != '.')
-				i = i + data->nblocks;
-			data = data->next;
-		}
-		ft_putnbr(i);
-		ft_putchar('\n');
-	}
-}
-
-void	printdir(t_data *data, t_options *options)
-{
-	t_data	*start;
-
-	start = data;
-	while (start)
-	{
-		if (data->name[0] != '.' || options->a == 1)
-		{
-			if (options->l == 1)
-				printlist(start, options);
-			else
-				printshort(start, options);
-		}
-		start = start->next;
+		data = data->next;
 	}
 }
 
@@ -119,9 +39,7 @@ void	printrest(t_data *data, t_options *options)
 {
 	t_data	*start;
 	t_data	*temp;
-	t_data	*temp2;
 
-	temp2 = malloc(sizeof(t_data));
 	start = data;
 	while (data)
 	{
@@ -135,32 +53,18 @@ void	printrest(t_data *data, t_options *options)
 		data = data->next;
 	}
 	data = start;
-	while (data)
+	restdir(data, options, start, temp);
+}
+
+void	printall(t_data *start, t_options *options)
+{
+	while (start)
 	{
-		if (data->type == 'd')
-		{
-			if (data != start)
-			{
-				ft_putchar('\n');
-				ft_putstr(data->name);
-				ft_putendl(":");
-			}
-//			if (data->name[0] != '.' || (options->a == 1 || !ft_strcmp(data->name, ".")))
-//				printblocks(data, options);
-			temp = get_dir(data->path);
-			temp = prep(temp, temp, options);
-			if (temp->name[0] != '.' || (options->a == 1 || !ft_strcmp(temp->name, ".")))
-				printblocks(temp, options);
-			while (temp)
-			{
-				if (options->l == 1)
-					printlist(temp, options);
-				else
-					printshort(temp, options);
-				temp = temp->next;
-			}
-		}
-		data = data->next;
+		if (options->l == 1)
+			printlist(start, options);
+		else
+			printshort(start, options);
+		start = start->next;
 	}
 }
 
@@ -170,28 +74,23 @@ void	recursion(t_data *data, t_options *options)
 	t_data	*data2;
 
 	data2 = get_dir(data->path);
-	start = data2;
-	data2 = prep(start, data2, options);
+	data2 = prep(data2, data2, options);
 	start = data2;
 	while (data2)
 	{
-		if (data2->type == 'd' && (data2->name[0] != '.' || (ft_strcmp(data2->name, ".") && ft_strcmp(data2->name, "..") && options->a == 1)))
+		if (data2->type == 'd' && (data2->name[0] != '.' ||
+			(ft_strcmp(data2->name, ".") && ft_strcmp(data2->name, "..")
+			&& options->a == 1)))
 		{
 			write(1, "\n", 1);
 			ft_putstr(data2->path);
 			ft_putendl(":");
-			if (data2->name[0] != '.' || options->a == 1 || !ft_strcmp(data2->name, "."))
+			if (data2->name[0] != '.' || (options->a == 1
+						|| !ft_strcmp(data2->name, ".")))
 				printblocks(get_dir(data2->path), options);
 			start = get_dir(data2->path);
 			start = prep(start, start, options);
-			while (start)
-			{
-				if (options->l == 1)
-					printlist(start, options);
-				else
-					printshort(start, options);
-				start = start->next;
-			}
+			printall(start, options);
 			recursion(data2, options);
 		}
 		data2 = data2->next;
