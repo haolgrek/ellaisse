@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 12:11:26 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/25 18:15:46 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_options
 	int				a;
 	int				r;
 	int				t;
+	int				nf;
 }					t_options;
 
 t_data				*get_dir(char *dirname);
@@ -62,13 +63,13 @@ t_data				*tsort(t_data *data);
 t_data				*rsort(t_data *data);
 t_data				*asciisort(t_data *data);
 t_data				*prep(t_data *start, t_data *data, t_options *options);
-void				nofile(char *argv);
+void				nofile(char *argv, t_options *options);
 void				recursion(t_data *data, t_options *options);
 int					ispoint(char *filename);
 int					printlist(t_data *data, t_options *options);
 int					printshort(t_data *data, t_options *options);
 void				doall(char *argv, t_options *options);
-void				printrest(t_data *data, t_options *options);
+void				printrest(t_data *data, t_options *options, char *name);
 char				*cutpath(char *path);
 int					printerror(char *name);
 void				printall(t_data *data, t_options *options);
@@ -76,5 +77,9 @@ void				printblocks(t_data *data, t_options *options);
 void				printdir(t_data *data, t_options *options);
 t_data				*getrest(int argc, char **argv, t_options *options, int i);
 void				alphsort(char **argv, int argc, int opt);
+int					cleanargv(char **argv, int argc, int opt, t_options *opts);
+char				**argvpoint(int *argc);
+int					stock_options(int argc, char **argv, t_options *options);
+void				showlnk(t_data *data);
 
 #endif

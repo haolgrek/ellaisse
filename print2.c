@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:12:31 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 18:12:44 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/25 18:19:38 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_data	*getrest(int argc, char **argv, t_options *options, int i)
 	while (i < argc)
 	{
 		if (lstat(argv[i], &buf) != 0)
-			nofile(argv[i++]);
+			nofile(argv[i++], options);
 		else
 		{
 			if (!start)
@@ -63,10 +63,7 @@ void	printblocks(t_data *data, t_options *options)
 	i = 0;
 	start = data;
 	if (data == NULL)
-	{
-		printerror(data->name);
 		return ;
-	}
 	while (start)
 	{
 		start = start->next;
@@ -74,6 +71,7 @@ void	printblocks(t_data *data, t_options *options)
 	}
 	if (i > 2 || options->a == 1)
 	{
+
 		if (options->l == 1)
 		{
 			ft_putstr("total ");
@@ -82,6 +80,33 @@ void	printblocks(t_data *data, t_options *options)
 			ft_putchar('\n');
 		}
 	}
+}
+
+int		printlist(t_data *data, t_options *options)
+{
+	if (data->type == '0' || (options->a != 1 && data->name[0] == '.'))
+		return (0);
+	ft_putchar(data->type);
+	ft_putstr(data->file_mode);
+	write(1, " ", 1);
+	ft_putnbr(data->link_number);
+	write(1, " ", 1);
+	ft_putstr(data->owner);
+	write(1, " ", 1);
+	ft_putstr(data->group_name);
+	write(1, " ", 1);
+	ft_putnbr(data->size);
+	write(1, " ", 1);
+	ft_putstr(data->ctime);
+	write(1, " ", 1);
+	ft_putstr(data->name);
+	if (data->type == 'l')
+	{
+		write(1, " -> ", 4);
+		showlnk(data);
+	}
+	write(1, "\n", 1);
+	return (0);
 }
 
 void	printdir(t_data *data, t_options *options)

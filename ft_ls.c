@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 12:15:26 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/25 17:49:56 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	get_options(char **argv, int j, int i, t_options *options)
 		printf("usage: ft_ls [-Ralrt] [file ...]\n");
 		exit(1);
 	}
+	options->nf = 0;
 }
 
 int		stock_options(int argc, char **argv, t_options *options)
@@ -63,44 +64,6 @@ void	showlnk(t_data *data)
 	write(1, buf, n);
 }
 
-int		printshort(t_data *data, t_options *options)
-{
-	if (options->a != 1 && data->name[0] == '.')
-		return (0);
-	ft_putstr(data->name);
-	write(1, "\n", 1);
-	return (0);
-}
-
-int		printlist(t_data *data, t_options *options)
-{
-	if (data->type == '0')
-		return (0);
-	if (options->a != 1 && data->name[0] == '.')
-		return (0);
-	ft_putchar(data->type);
-	ft_putstr(data->file_mode);
-	write(1, " ", 1);
-	ft_putnbr(data->link_number);
-	write(1, " ", 1);
-	ft_putstr(data->owner);
-	write(1, " ", 1);
-	ft_putstr(data->group_name);
-	write(1, " ", 1);
-	ft_putnbr(data->size);
-	write(1, " ", 1);
-	ft_putstr(data->ctime);
-	write(1, " ", 1);
-	ft_putstr(data->name);
-	if (data->type == 'l')
-	{
-		write(1, " -> ", 4);
-		showlnk(data);
-	}
-	write(1, "\n", 1);
-	return (0);
-}
-
 char	**argvpoint(int *argc)
 {
 	char	**argv;
@@ -117,114 +80,5 @@ int		ispoint(char *filename)
 {
 	if (filename[0] == '.')
 		return (1);
-	return (0);
-}
-
-void	alphsort(char **argv, int argc, int opt)
-{
-	int		i;
-	char	*temp;
-
-	i = opt;
-	while ((i + 1) < argc)
-	{
-		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) > 0)
-		{
-			temp = argv[i];
-			argv[i] = argv[i + 1];
-			argv[i + 1] = temp;
-			i = opt;
-		}
-		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) <= 0)
-			i++;
-	}
-}
-
-void	filesort(char **argv, int argc, int opt, struct stat buf)
-{
-	int		i;
-	char	*temp;
-
-	i = opt;
-	while ((i + 1) < argc)
-	{
-		if ((i + 1) < argc && lstat(argv[i], &buf) == 0
-				&& lstat(argv[i + 1], &buf) != 0)
-		{
-			temp = argv[i];
-			argv[i] = argv[i + 1];
-			argv[i + 1] = temp;
-			i = opt;
-		}
-		else
-			i++;
-	}
-}
-
-void	dirsort(char **argv, int argc, int opt, struct stat buf)
-{
-	char			*temp;
-	DIR				*dir;
-	struct dirent	*dit;
-	int				i;
-
-	i = opt;
-	while ((i + 1) < argc)
-	{
-		if ((i + 1) < argc && (dir = opendir(argv[i])) &&
-				!(dir = opendir(argv[i + 1])))
-		{
-			temp = argv[i];
-			argv[i] = argv[i + 1];
-			argv[i + 1] = temp;
-			i = opt;
-		}
-		else
-			i++;
-	}
-}
-
-int		cleanargv(char **argv, int argc, int opt)
-{
-	int				i;
-	struct stat		buf;
-
-	i = opt;
-	alphsort(argv, argc, opt);
-	filesort(argv, argc, opt, buf);
-	while (lstat(argv[i], &buf) != 0 && i < argc)
-	{
-		nofile(argv[i++]);
-		opt++;
-	}
-	dirsort(argv, argc, opt, buf);
-	return (opt);
-}
-
-int		main(int argc, char **argv)
-{
-	int			i;
-	t_options	*options;
-	t_data		*data;
-
-	options = malloc(sizeof(t_options));
-	i = stock_options(argc, argv, options);
-	if (argc == i)
-	{
-		i = 1;
-		argv = argvpoint(&argc);
-	}
-	i = cleanargv(argv, argc, i);
-	data = getrest(argc, argv, options, i);
-	printrest(data, options);
-	if (options->rec == 1)
-	{
-		while (data)
-		{
-			if (data->type == 'd')
-				recursion(data, options);
-			data = data->next;
-		}
-	}
 	return (0);
 }

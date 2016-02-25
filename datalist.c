@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 18:05:27 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/25 18:49:17 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,21 @@ char			*get_mode(mode_t perms)
 	return (mode);
 }
 
-void			nofile(char *argv)
+void			nofile(char *argv, t_options *options)
 {
 	write(1, "ls: ", 4);
 	ft_putstr(argv);
 	ft_putendl(": No such file or directory");
+	options->nf = 1;
 }
 
 t_data			*grab_all(char *argv)
 {
-	struct stat	buf;
-	char		bufsiz[256];
-	t_data		*data;
+	struct stat		buf;
+	struct passwd	*pwd;
+	struct group	*grp;
+	char			bufsiz[256];
+	t_data			*data;
 
 	data = malloc(sizeof(t_data));
 	lstat(argv, &buf);
@@ -78,8 +81,10 @@ t_data			*grab_all(char *argv)
 	data->link_number = buf.st_nlink;
 	data->path = argv;
 	data->name = cutpath(argv);
-	data->owner = getpwuid(buf.st_uid)->pw_name;
-	data->group_name = getgrgid(buf.st_gid)->gr_name;
+	pwd = getpwuid(buf.st_uid);
+	data->owner = (pwd ? ft_strdup(pwd->pw_name) : ft_itoa(buf.st_uid));
+	grp = getgrgid(buf.st_gid);
+	data->group_name = (grp ? ft_strdup(grp->gr_name) : ft_itoa(buf.st_gid));
 	data->size = buf.st_size;
 	data->ctime = ft_strsub(ctime(&(buf.st_mtime)), 4, 12);
 	data->time = (long long)buf.st_mtime;
