@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 18:19:34 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/25 12:15:26 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,10 @@ int		ispoint(char *filename)
 	return (0);
 }
 
-int		cleanargv(char **argv, int argc, int opt)
+void	alphsort(char **argv, int argc, int opt)
 {
-	char			*temp;
-	int				i;
-	struct stat		buf;
-	DIR				*dir;
-	struct dirent	*dit;
+	int		i;
+	char	*temp;
 
 	i = opt;
 	while ((i + 1) < argc)
@@ -141,6 +138,13 @@ int		cleanargv(char **argv, int argc, int opt)
 		if ((i + 1) < argc && ft_strcmp(argv[i], argv[i + 1]) <= 0)
 			i++;
 	}
+}
+
+void	filesort(char **argv, int argc, int opt, struct stat buf)
+{
+	int		i;
+	char	*temp;
+
 	i = opt;
 	while ((i + 1) < argc)
 	{
@@ -155,12 +159,16 @@ int		cleanargv(char **argv, int argc, int opt)
 		else
 			i++;
 	}
+}
+
+void	dirsort(char **argv, int argc, int opt, struct stat buf)
+{
+	char			*temp;
+	DIR				*dir;
+	struct dirent	*dit;
+	int				i;
+
 	i = opt;
-	while (lstat(argv[i], &buf) != 0 && i < argc)
-	{
-		nofile(argv[i++]);
-		opt++;
-	}
 	while ((i + 1) < argc)
 	{
 		if ((i + 1) < argc && (dir = opendir(argv[i])) &&
@@ -174,6 +182,22 @@ int		cleanargv(char **argv, int argc, int opt)
 		else
 			i++;
 	}
+}
+
+int		cleanargv(char **argv, int argc, int opt)
+{
+	int				i;
+	struct stat		buf;
+
+	i = opt;
+	alphsort(argv, argc, opt);
+	filesort(argv, argc, opt, buf);
+	while (lstat(argv[i], &buf) != 0 && i < argc)
+	{
+		nofile(argv[i++]);
+		opt++;
+	}
+	dirsort(argv, argc, opt, buf);
 	return (opt);
 }
 

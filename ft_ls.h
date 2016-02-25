@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 18:14:38 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/25 12:11:26 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void				printall(t_data *data, t_options *options);
 void				printblocks(t_data *data, t_options *options);
 void				printdir(t_data *data, t_options *options);
 t_data				*getrest(int argc, char **argv, t_options *options, int i);
+void				alphsort(char **argv, int argc, int opt);
 
 #endif
