@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/28 19:11:41 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 23:43:35 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	restdir(t_data *data, t_options *options, t_data *start, t_data *temp)
 	{
 		if (data->type == 'd')
 		{
-			if (data != start || options->nf == 1)
+			if (options->nf != 0)
+				ft_putchar('\n');
+			if (ft_strcmp(data->name, ".") != 0 && options->nf != 0)
 			{
-				if (options->nf != 1)
-					ft_putchar('\n');
 				ft_putstr(data->name);
 				ft_putendl(":");
-				options->nf = 1;
 			}
+			options->nf = 1;
 			temp = get_dir(data->path);
 			temp = prep(temp, temp, options);
 			if (temp->name[0] != '.' || (options->a == 1 ||
@@ -51,6 +51,7 @@ void	printrest(t_data *data, t_options *options, char *name)
 				printlist(data, options);
 			else
 				printshort(data, options);
+			options->nf = 1;
 		}
 		data = data->next;
 	}
@@ -89,7 +90,7 @@ void	recursion(t_data *data, t_options *options)
 
 	data2 = get_dir(data->path);
 	data2 = prep(data2, data2, options);
-	start = data2;
+	printall(data2, options);
 	while (data2)
 	{
 		if (data2->type == 'd' && (data2->name[0] != '.' ||
@@ -103,18 +104,9 @@ void	recursion(t_data *data, t_options *options)
 						|| !ft_strcmp(data2->name, ".")))
 				printblocks(get_dir(data2->path), options);
 			i = printerror(data2);
-			ft_putstr("i = ");
-			ft_putnbr(i);
-			ft_putchar('\n');
 			if (i == 0)
-			{
-				start = get_dir(data2->path);
-				start = prep(start, start, options);
-				printall(start, options);
 				recursion(data2, options);
-			}
 		}
 		data2 = data2->next;
 	}
-	freelist(start);
 }

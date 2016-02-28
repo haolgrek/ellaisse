@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:12:31 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/28 17:49:43 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 23:44:11 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_data	*getrest(int argc, char **argv, t_options *options, int i)
 			}
 		}
 	}
-//	free (data);
 	return (prep(start, start, options));
 }
 
@@ -72,7 +71,6 @@ void	printblocks(t_data *data, t_options *options)
 	}
 	if (i > 2 || options->a == 1)
 	{
-
 		if (options->l == 1)
 		{
 			ft_putstr("total ");

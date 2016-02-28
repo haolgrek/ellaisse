@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:12:25 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 18:15:15 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 21:26:50 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		main(int argc, char **argv)
 	}
 	i = cleanargv(argv, argc, i, options);
 	data = getrest(argc, argv, options, i);
-	printrest(data, options, argv[i]);
 	if (options->rec == 1)
 	{
 		while (data)
@@ -37,5 +36,7 @@ int		main(int argc, char **argv)
 			data = data->next;
 		}
 	}
+	else
+		printrest(data, options, argv[i]);
 	return (0);
 }

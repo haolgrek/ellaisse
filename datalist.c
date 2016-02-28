@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 20:15:18 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 22:25:58 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void			nofile(char *argv, t_options *options)
 	write(1, "ls: ", 4);
 	ft_putstr(argv);
 	ft_putendl(": No such file or directory");
-	options->nf = 1;
 }
 
 t_data			*grab_all(char *argv)
