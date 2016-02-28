@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 18:22:09 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 19:11:41 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	printrest(t_data *data, t_options *options, char *name)
 	}
 	data = start;
 	restdir(data, options, start, temp);
+	if (temp)
+		freelist(temp);
 }
 
 void	printall(t_data *start, t_options *options)
@@ -83,6 +85,7 @@ void	recursion(t_data *data, t_options *options)
 {
 	t_data	*start;
 	t_data	*data2;
+	int		i;
 
 	data2 = get_dir(data->path);
 	data2 = prep(data2, data2, options);
@@ -99,11 +102,19 @@ void	recursion(t_data *data, t_options *options)
 			if (data2->name[0] != '.' || (options->a == 1
 						|| !ft_strcmp(data2->name, ".")))
 				printblocks(get_dir(data2->path), options);
-			start = get_dir(data2->path);
-			start = prep(start, start, options);
-			printall(start, options);
-			recursion(data2, options);
+			i = printerror(data2);
+			ft_putstr("i = ");
+			ft_putnbr(i);
+			ft_putchar('\n');
+			if (i == 0)
+			{
+				start = get_dir(data2->path);
+				start = prep(start, start, options);
+				printall(start, options);
+				recursion(data2, options);
+			}
 		}
 		data2 = data2->next;
 	}
+	freelist(start);
 }

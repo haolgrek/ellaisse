@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/24 18:06:34 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 18:26:50 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_data	*tsort(t_data *data)
 		else
 			data = data->next;
 	}
+	free(tmp);
 	return (start);
 }
 
@@ -53,6 +54,7 @@ t_data	*asciisort(t_data *data)
 		else
 			data = data->next;
 	}
+	free(tmp);
 	return (start);
 }
 

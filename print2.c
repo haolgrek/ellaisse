@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:12:31 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 18:19:38 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 17:49:43 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_data	*getrest(int argc, char **argv, t_options *options, int i)
 			}
 		}
 	}
-	return (prep(start, data, options));
+//	free (data);
+	return (prep(start, start, options));
 }
 
 int		countblocks(t_data *data, t_options *options)

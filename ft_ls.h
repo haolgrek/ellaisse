@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 18:15:46 by rluder           ###   ########.fr       */
+/*   Updated: 2016/02/28 18:11:06 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int					printshort(t_data *data, t_options *options);
 void				doall(char *argv, t_options *options);
 void				printrest(t_data *data, t_options *options, char *name);
 char				*cutpath(char *path);
-int					printerror(char *name);
+int					printerror(t_data *data);
 void				printall(t_data *data, t_options *options);
 void				printblocks(t_data *data, t_options *options);
 void				printdir(t_data *data, t_options *options);
@@ -81,5 +81,6 @@ int					cleanargv(char **argv, int argc, int opt, t_options *opts);
 char				**argvpoint(int *argc);
 int					stock_options(int argc, char **argv, t_options *options);
 void				showlnk(t_data *data);
+void				freelist(t_data *data);
 
 #endif
