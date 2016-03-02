@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/02 23:11:36 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 00:05:09 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	restdir(t_data *data, t_options *options, t_data *temp)
 		if (data->type == 'd')
 		{
 			if (options->nf == 1 || options->dir == 0)
-			{
 				ft_putchar('\n');
-				options->nf = 1;
-			}
 			if (options->nf == 1 || options->dir == 1)
 			{
 				ft_putstr(data->name);
@@ -35,7 +32,7 @@ void	restdir(t_data *data, t_options *options, t_data *temp)
 			temp = get_dir(data->path);
 			temp = prep(temp, temp, options);
 			if (temp->name[0] != '.' || (options->a == 1 ||
-						!ft_strcmp(temp->name, ".")) || options->nf > 0)
+						!ft_strcmp(temp->name, ".")) || options->nf != 0)
 				printblocks(temp, options);
 			printall(temp, options);
 		}
