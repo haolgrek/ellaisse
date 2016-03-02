@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:12:31 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/02 18:16:17 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 22:15:29 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_data	*getrest(int argc, char **argv, t_options *options, int i)
 	t_data		*data;
 
 	start = NULL;
+	data = malloc(sizeof(t_data));
 	while (i < argc)
 	{
 		if (lstat(argv[i], &buf) != 0)

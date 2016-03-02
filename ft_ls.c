@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/02 18:15:40 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 23:12:42 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	get_options(char **argv, int j, int i, t_options *options)
 		exit(1);
 	}
 	options->nf = 0;
+	options->dir = 0;
 }
 
 int		stock_options(char **argv, t_options *options)
