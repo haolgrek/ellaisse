@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/28 18:11:06 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 19:43:27 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ t_data				*tsort(t_data *data);
 t_data				*rsort(t_data *data);
 t_data				*asciisort(t_data *data);
 t_data				*prep(t_data *start, t_data *data, t_options *options);
-void				nofile(char *argv, t_options *options);
+void				nofile(char *argv);
 void				recursion(t_data *data, t_options *options);
 int					ispoint(char *filename);
 int					printlist(t_data *data, t_options *options);
 int					printshort(t_data *data, t_options *options);
 void				doall(char *argv, t_options *options);
-void				printrest(t_data *data, t_options *options, char *name);
+void				printrest(t_data *data, t_options *options);
 char				*cutpath(char *path);
 int					printerror(t_data *data);
 void				printall(t_data *data, t_options *options);
@@ -77,9 +77,9 @@ void				printblocks(t_data *data, t_options *options);
 void				printdir(t_data *data, t_options *options);
 t_data				*getrest(int argc, char **argv, t_options *options, int i);
 void				alphsort(char **argv, int argc, int opt);
-int					cleanargv(char **argv, int argc, int opt, t_options *opts);
+int					cleanargv(char **argv, int argc, int opt);
 char				**argvpoint(int *argc);
-int					stock_options(int argc, char **argv, t_options *options);
+int					stock_options(char **argv, t_options *options);
 void				showlnk(t_data *data);
 void				freelist(t_data *data);
 

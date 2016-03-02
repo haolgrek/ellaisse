@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 19:45:38 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 17:49:56 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 18:15:40 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	get_options(char **argv, int j, int i, t_options *options)
 	options->nf = 0;
 }
 
-int		stock_options(int argc, char **argv, t_options *options)
+int		stock_options(char **argv, t_options *options)
 {
 	int			i;
 	int			j;

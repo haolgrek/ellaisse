@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:12:25 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/28 21:26:50 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 19:43:58 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int		main(int argc, char **argv)
 	t_data		*data;
 
 	options = malloc(sizeof(t_options));
-	i = stock_options(argc, argv, options);
+	i = stock_options(argv, options);
 	if (argc == i)
 	{
 		i = 1;
 		argv = argvpoint(&argc);
 	}
-	i = cleanargv(argv, argc, i, options);
+	i = cleanargv(argv, argc, i);
 	data = getrest(argc, argv, options, i);
 	if (options->rec == 1)
 	{
@@ -37,6 +37,6 @@ int		main(int argc, char **argv)
 		}
 	}
 	else
-		printrest(data, options, argv[i]);
+		printrest(data, options);
 	return (0);
 }

@@ -6,21 +6,21 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/28 23:43:35 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 19:54:19 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	restdir(t_data *data, t_options *options, t_data *start, t_data *temp)
+void	restdir(t_data *data, t_options *options, t_data *temp)
 {
 	while (data)
 	{
 		if (data->type == 'd')
 		{
-			if (options->nf != 0)
+			if (options->nf == 1)
 				ft_putchar('\n');
-			if (ft_strcmp(data->name, ".") != 0 && options->nf != 0)
+			if (options->nf == 1)
 			{
 				ft_putstr(data->name);
 				ft_putendl(":");
@@ -37,12 +37,13 @@ void	restdir(t_data *data, t_options *options, t_data *start, t_data *temp)
 	}
 }
 
-void	printrest(t_data *data, t_options *options, char *name)
+void	printrest(t_data *data, t_options *options)
 {
 	t_data	*start;
 	t_data	*temp;
 
 	start = data;
+	temp = malloc(sizeof(t_data));
 	while (data)
 	{
 		if (data->type != 'd')
@@ -56,9 +57,7 @@ void	printrest(t_data *data, t_options *options, char *name)
 		data = data->next;
 	}
 	data = start;
-	restdir(data, options, start, temp);
-	if (temp)
-		freelist(temp);
+	restdir(data, options, temp);
 }
 
 void	printall(t_data *start, t_options *options)
@@ -84,7 +83,6 @@ int		printshort(t_data *data, t_options *options)
 
 void	recursion(t_data *data, t_options *options)
 {
-	t_data	*start;
 	t_data	*data2;
 	int		i;
 

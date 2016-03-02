@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/28 22:25:58 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 19:43:32 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char			*get_mode(mode_t perms)
 	return (mode);
 }
 
-void			nofile(char *argv, t_options *options)
+void			nofile(char *argv)
 {
 	write(1, "ls: ", 4);
 	ft_putstr(argv);
@@ -70,7 +70,6 @@ t_data			*grab_all(char *argv)
 	struct stat		buf;
 	struct passwd	*pwd;
 	struct group	*grp;
-	char			bufsiz[256];
 	t_data			*data;
 
 	data = malloc(sizeof(t_data));

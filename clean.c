@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 16:45:24 by rluder            #+#    #+#             */
-/*   Updated: 2016/02/25 19:56:13 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/02 19:43:36 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ void	filesort(char **argv, int argc, int opt, struct stat buf)
 	}
 }
 
-void	dirsort(char **argv, int argc, int opt, struct stat buf)
+void	dirsort(char **argv, int argc, int opt)
 {
 	char			*temp;
 	DIR				*dir;
-	struct dirent	*dit;
 	int				i;
 
 	i = opt;
@@ -99,7 +98,7 @@ void	dirsort(char **argv, int argc, int opt, struct stat buf)
 	}
 }
 
-int		cleanargv(char **argv, int argc, int opt, t_options *options)
+int		cleanargv(char **argv, int argc, int opt)
 {
 	int				i;
 	struct stat		buf;
@@ -109,9 +108,9 @@ int		cleanargv(char **argv, int argc, int opt, t_options *options)
 	filesort(argv, argc, opt, buf);
 	while (lstat(argv[i], &buf) != 0 && i < argc)
 	{
-		nofile(argv[i++], options);
+		nofile(argv[i++]);
 		opt++;
 	}
-	dirsort(argv, argc, opt, buf);
+	dirsort(argv, argc, opt);
 	return (opt);
 }
