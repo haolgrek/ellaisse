@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 15:03:37 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 17:27:04 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_data	*swapdata(t_data *data1, t_data *data2)
 	data1->owner = data2->owner;
 	data1->group_name = data2->group_name;
 	data1->size = data2->size;
+	data1->siz = data2->siz;
 	data1->time = data2->time;
 	data1->ctime = data2->ctime;
 	data1->ntime = data2->ntime;

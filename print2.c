@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:12:31 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 16:46:39 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 17:27:33 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		printlist(t_data *data, t_options *options)
 	write(1, " ", 1);
 	ft_putstr(data->group_name);
 	write(1, " ", 1);
-	ft_putnbr(data->size);
+	ft_putstr(data->siz);
 	write(1, " ", 1);
 	ft_putstr(data->ctime);
 	write(1, " ", 1);

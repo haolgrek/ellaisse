@@ -6,17 +6,32 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 16:21:39 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 17:03:40 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+void	printlink(t_data *data, t_options *options, t_data *temp)
+{
+	if (options->dir == 1)
+		ft_putchar('\n');
+	if (options->dir == 1 || options->dir == 2 || options->nf == 1)
+	{
+		ft_putstr(data->name);
+		ft_putendl(":");
+		}
+	options->dir = 1;
+	temp = get_dir(data->path);
+	temp = prep(temp, temp, options);
+	printall(temp, options);
+}
+
 void	restdir(t_data *data, t_options *options, t_data *temp)
 {
 	while (data)
 	{
-		if (data->type == 'd')
+		if (data->type == 'd' )
 		{
 			if (options->dir == 1)
 				ft_putchar('\n');
@@ -31,6 +46,8 @@ void	restdir(t_data *data, t_options *options, t_data *temp)
 			printblocks(temp, options);
 			printall(temp, options);
 		}
+		else if (data->type == 'l' && options->l == 0)
+			printlink(data, options, temp);
 		data = data->next;
 	}
 }

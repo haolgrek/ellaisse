@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 15:12:49 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 17:24:49 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,22 @@ void			nofile(char *argv, t_options *options)
 	options->nf = 1;
 }
 
+char	*minmaj(int size, dev_t rdev, t_data *data)
+{
+	char	*str;
+	char	*minor;
+	char	*major;
+
+	if (data->type != 'c' && data->type != 'b')
+		return (ft_itoa(size));
+	major = ft_itoa(major(rdev));
+	minor = ft_itoa(minor(rdev));
+	str = ft_strjoin(major, ft_strjoin(" , ", minor));
+	free(major);
+	free(minor);
+	return (str);
+}
+
 t_data			*grab_all(char *argv)
 {
 	struct stat		buf;
@@ -92,6 +108,7 @@ t_data			*grab_all(char *argv)
 	grp = getgrgid(buf.st_gid);
 	data->group_name = (grp ? ft_strdup(grp->gr_name) : ft_itoa(buf.st_gid));
 	data->size = buf.st_size;
+	data->siz = minmaj(buf.st_size, buf.st_rdev, data);
 	data->nblocks = buf.st_blocks;
 	data->ctime = ft_strsub(ctime(&(buf.st_mtime)), 4, 12);
 	data->time = (long long)buf.st_mtime;
