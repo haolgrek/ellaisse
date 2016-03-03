@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 14:59:11 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 14:14:41 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 15:33:28 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_data
 	char			*group_name;
 	unsigned int	size;
 	long long		time;
+	long long		ntime;
 	char			*ctime;
 	int				nblocks;
 	struct s_data	*next;
@@ -83,5 +84,6 @@ char				**argvpoint(int *argc);
 int					stock_options(char **argv, t_options *options);
 void				showlnk(t_data *data);
 void				freelist(t_data *data);
+void				restdir(t_data *data, t_options *options, t_data *temp);
 
 #endif

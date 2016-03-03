@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 14:17:26 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 15:12:49 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,10 @@ t_data			*grab_all(char *argv)
 	grp = getgrgid(buf.st_gid);
 	data->group_name = (grp ? ft_strdup(grp->gr_name) : ft_itoa(buf.st_gid));
 	data->size = buf.st_size;
+	data->nblocks = buf.st_blocks;
 	data->ctime = ft_strsub(ctime(&(buf.st_mtime)), 4, 12);
 	data->time = (long long)buf.st_mtime;
-	data->nblocks = buf.st_blocks;
+	data->ntime = buf.st_mtimespec.tv_nsec;
 	data->next = (void*)0;
 	return (data);
 }

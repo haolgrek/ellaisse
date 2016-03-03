@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 14:19:21 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 15:03:37 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data	*tsort(t_data *data)
 	tmp = malloc(sizeof(t_data));
 	while (data && data->next)
 	{
-		if (data->time < data->next->time)
+		if (data->time < data->next->time || (data->time == data->next->time && data->ntime < data->next->ntime))
 		{
 			tmp = swapdata(tmp, data);
 			data = swapdata(data, data->next);
@@ -90,6 +90,7 @@ t_data	*swapdata(t_data *data1, t_data *data2)
 	data1->size = data2->size;
 	data1->time = data2->time;
 	data1->ctime = data2->ctime;
+	data1->ntime = data2->ntime;
 	data1->nblocks = data2->nblocks;
 	return (data1);
 }

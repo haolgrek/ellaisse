@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:12:25 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 14:30:56 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 16:40:44 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,14 @@ int		main(int argc, char **argv)
 		while (data)
 		{
 			if (data->type == 'd')
+			{
+				if (options->nf == 2)
+					write (1, "\n", 1);
+				ft_putstr(data->name);
+				ft_putendl(":");
+				printblocks(get_dir(data->path), options);
 				recursion(data, options);
+			}
 			data = data->next;
 		}
 	}

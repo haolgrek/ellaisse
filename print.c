@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 14:34:48 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 16:21:39 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	restdir(t_data *data, t_options *options, t_data *temp)
 			options->dir = 1;
 			temp = get_dir(data->path);
 			temp = prep(temp, temp, options);
-			if (temp->name[0] != '.' || (options->a == 1 ||
-						!ft_strcmp(temp->name, ".")))
-				printblocks(temp, options);
+			printblocks(temp, options);
 			printall(temp, options);
 		}
 		data = data->next;
@@ -84,23 +82,32 @@ int		printshort(t_data *data, t_options *options)
 	return (0);
 }
 
+void	printdir2(t_data *data, t_data *start)
+{
+	if (data != start)
+		ft_putchar('\n');
+	ft_putstr(data->name);
+	ft_putendl(":");
+}
+
 void	recursion(t_data *data, t_options *options)
 {
 	t_data	*data2;
+	t_data	*start;
 	int		i;
 
 	data2 = get_dir(data->path);
 	data2 = prep(data2, data2, options);
+	start = data2;
 	printall(data2, options);
 	while (data2)
 	{
+		options->nf = 2;
 		if (data2->type == 'd' && (data2->name[0] != '.' ||
 			(ft_strcmp(data2->name, ".") && ft_strcmp(data2->name, "..")
 			&& options->a == 1)))
 		{
-			write(1, "\n", 1);
-			ft_putstr(data2->path);
-			ft_putendl(":");
+			printdir2(data2, start);
 			if (data2->name[0] != '.' || (options->a == 1
 						|| !ft_strcmp(data2->name, ".")))
 				printblocks(get_dir(data2->path), options);

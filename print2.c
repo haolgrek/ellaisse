@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 17:12:31 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 14:03:20 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 16:46:39 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,14 @@ int		countblocks(t_data *data, t_options *options)
 void	printblocks(t_data *data, t_options *options)
 {
 	unsigned int	i;
-	t_data			*start;
+	t_data *start;
 
 	i = 0;
-	start = data;
 	if (data == NULL)
 		return ;
-	while (start)
+	if (options->l == 1)
 	{
-		start = start->next;
-		i++;
-	}
-	if (i > 2 || options->a == 1)
-	{
-		if (options->l == 1)
+		if (data->next->next || options->a == 1)
 		{
 			ft_putstr("total ");
 			i = countblocks(data, options);
