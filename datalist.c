@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 17:04:13 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/02 22:29:21 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 14:17:26 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,19 @@ char			*get_mode(mode_t perms)
 	return (mode);
 }
 
-void			nofile(char *argv)
+void			nofile(char *argv, t_options *options)
 {
 	write(1, "ls: ", 4);
-	ft_putstr(argv);
+	if (!ft_strcmp(argv, ""))
+	{
+		ft_putstr("fts_open");
+		ft_putendl(": No such file or directory");
+		exit (1) ;
+	}
+	else
+		ft_putstr(argv);
 	ft_putendl(": No such file or directory");
+	options->nf = 1;
 }
 
 t_data			*grab_all(char *argv)

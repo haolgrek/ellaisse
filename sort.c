@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 13:15:22 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/02 23:00:11 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 14:19:21 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,5 @@ t_data	*prep(t_data *start, t_data *data, t_options *options)
 	start = data;
 	if (options->r == 1)
 		start = rsort(start);
-	if (start && start->next)
-	{
-		if (start->type == 'd' && start->next->type == 'd')
-			options->dir = 1;
-	}
 	return (start);
 }

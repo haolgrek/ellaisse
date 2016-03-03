@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 16:01:55 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/03 00:05:09 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 14:34:48 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,22 @@
 
 void	restdir(t_data *data, t_options *options, t_data *temp)
 {
-	if (options->dir == 0)
-		options->nf = 0;
 	while (data)
 	{
 		if (data->type == 'd')
 		{
-			if (options->nf == 1 || options->dir == 0)
+			if (options->dir == 1)
 				ft_putchar('\n');
-			if (options->nf == 1 || options->dir == 1)
+			if (options->dir == 1 || options->dir == 2 || options->nf == 1)
 			{
 				ft_putstr(data->name);
 				ft_putendl(":");
 			}
-			options->nf = 1;
 			options->dir = 1;
 			temp = get_dir(data->path);
 			temp = prep(temp, temp, options);
 			if (temp->name[0] != '.' || (options->a == 1 ||
-						!ft_strcmp(temp->name, ".")) || options->nf != 0)
+						!ft_strcmp(temp->name, ".")))
 				printblocks(temp, options);
 			printall(temp, options);
 		}
@@ -55,10 +52,13 @@ void	printrest(t_data *data, t_options *options)
 				printlist(data, options);
 			else
 				printshort(data, options);
-			options->nf = 1;
+			if (options->dir == 0 || options->dir == 2)
+				options->dir = 1;
 		}
 		data = data->next;
 	}
+	if (options->dir != 1 && options->dir != 3 && data != start)
+		options->dir = 2;
 	data = start;
 	restdir(data, options, temp);
 }

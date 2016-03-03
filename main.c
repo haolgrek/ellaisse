@@ -6,7 +6,7 @@
 /*   By: rluder <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:12:25 by rluder            #+#    #+#             */
-/*   Updated: 2016/03/02 22:26:31 by rluder           ###   ########.fr       */
+/*   Updated: 2016/03/03 14:30:56 by rluder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int		main(int argc, char **argv)
 		i = 1;
 		argv = argvpoint(&argc);
 	}
-	i = cleanargv(argv, argc, i);
+	i = cleanargv(argv, argc, i, options);
 	data = getrest(argc, argv, options, i);
+	if ((argc - i) == 1)
+		options->dir = 3;
 	if (options->rec == 1)
 	{
 		while (data)
